@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v1.1",
-    "signature": "0d89c71e655a451ff3867e14de4445144feccddc"
+    "signature": "6c9033cf1da4e08c266ae28f7ddd7711dababcdd"
   },
   "compilationOptions": {
     "defines": [
@@ -29,6 +29,7 @@
           "Microsoft.DiaSymReader.Native": "1.4.2",
           "Microsoft.Extensions.Configuration.Json": "1.1.0",
           "Microsoft.Extensions.Logging.Console": "1.1.0",
+          "Microsoft.Extensions.Logging.Debug": "1.1.0",
           "Microsoft.NETCore.App": "1.1.0",
           "Newtonsoft.Json": "9.0.1"
         },
@@ -962,6 +963,18 @@
         },
         "compile": {
           "lib/netstandard1.3/Microsoft.Extensions.Logging.Console.dll": {}
+        }
+      },
+      "microsoft.extensions.logging.debug/1.1.0": {
+        "dependencies": {
+          "Microsoft.Extensions.Logging.Abstractions": "1.1.0",
+          "NETStandard.Library": "1.6.1"
+        },
+        "runtime": {
+          "lib/netstandard1.3/Microsoft.Extensions.Logging.Debug.dll": {}
+        },
+        "compile": {
+          "lib/netstandard1.3/Microsoft.Extensions.Logging.Debug.dll": {}
         }
       },
       "microsoft.extensions.objectpool/1.1.0": {
@@ -3317,6 +3330,13 @@
       "sha512": "sha512-MkFjLvtMdYN1g3NesmkeuQ56f/LuQS46PvjhbF1rUoH9L1ZM3/uteuTknVDUryeWlh18oh6ew7Xo9H50KWPAog==",
       "path": "microsoft.extensions.logging.console/1.1.0",
       "hashPath": "microsoft.extensions.logging.console.1.1.0.nupkg.sha512"
+    },
+    "microsoft.extensions.logging.debug/1.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-6Kg1PyEbQjd37ZeWkrseJNvb99iUCdXRAjUqFd2zxW9ZCwjn9h+aSC2bMbyERvC+n6lImp053jqRBsotIrMiXw==",
+      "path": "microsoft.extensions.logging.debug/1.1.0",
+      "hashPath": "microsoft.extensions.logging.debug.1.1.0.nupkg.sha512"
     },
     "microsoft.extensions.objectpool/1.1.0": {
       "type": "package",
