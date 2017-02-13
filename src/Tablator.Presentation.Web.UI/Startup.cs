@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
+using Tablator.Presentation.Web.UI.Models.Configuration;
 
 namespace Tablator.Presentation.Web.UI
 {
@@ -30,6 +31,8 @@ namespace Tablator.Presentation.Web.UI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+
+            services.Configure<CatalogSettings>(options => Configuration.GetSection("Catalog").Bind(options));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

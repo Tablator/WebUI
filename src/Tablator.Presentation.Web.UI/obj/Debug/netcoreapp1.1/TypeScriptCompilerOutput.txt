@@ -2,3 +2,7 @@ D:\Tablator\WebUI\src\Tablator.Presentation.Web.UI\wwwroot\js\infrastructure.js
 D:\Tablator\WebUI\src\Tablator.Presentation.Web.UI\wwwroot\js\infrastructure.js.map
 D:\Tablator\WebUI\src\Tablator.Presentation.Web.UI\wwwroot\js\infrastructure.js
 D:\Tablator\WebUI\src\Tablator.Presentation.Web.UI\wwwroot\js\infrastructure.js.map
+D:\Tablator\WebUI\src\Tablator.Presentation.Web.UI\wwwroot\js\infrastructure.js
+D:\Tablator\WebUI\src\Tablator.Presentation.Web.UI\wwwroot\js\infrastructure.js.map
+D:\Tablator\WebUI\src\Tablator.Presentation.Web.UI\wwwroot\js\infrastructure.js
+D:\Tablator\WebUI\src\Tablator.Presentation.Web.UI\wwwroot\js\infrastructure.js.map
