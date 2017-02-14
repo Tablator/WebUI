@@ -102,6 +102,35 @@ namespace Tablator.Presentation.Web.UI.Controllers
             GuitarChordManager gcm = new Controllers.GuitarChordManager();
             return Content(null, "text/json");
         }
+
+        [HttpGet]
+        public IActionResult Tab02([FromQuery]int width)
+        {
+            string json = string.Empty;
+            Newtonsoft.Json.Linq.JObject o2;
+
+
+            using (System.IO.StreamReader file = System.IO.File.OpenText(System.IO.Path.Combine(_catalogRootDirectory, "01.tab")))
+            {
+                using (JsonTextReader rdr = new JsonTextReader(file))
+                {
+                    o2 = (Newtonsoft.Json.Linq.JObject)Newtonsoft.Json.Linq.JToken.ReadFrom(rdr);
+                    json = o2.ToString();
+                }
+            }
+
+
+            Tablature tab = JsonConvert.DeserializeObject<Tablature>(json);
+
+            SVGTabOptions opts = new SVGTabOptions();
+            opts.Width = width;
+
+            SVGTabGenerator tabGenerator = new SVGTabGenerator(tab, opts, null);
+            if (tabGenerator.TryBuild())
+                return View(new TabViewModel(tabGenerator.SVGContent));
+
+            return Content(json, "text/json");
+        }
     }
 
     public class TabViewModel
