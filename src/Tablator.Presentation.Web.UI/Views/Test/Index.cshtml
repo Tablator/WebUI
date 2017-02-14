@@ -1,0 +1,9 @@
+﻿@model Tablator.BusinessModel.HierarchyCollectionModel
+@{
+}
+<ul>
+    @foreach (Tablator.BusinessModel.HierarchyModel h in Model)
+    {
+        await Html.RenderPartialAsync("_HierarchyNav", h);
+    }
+</ul>
