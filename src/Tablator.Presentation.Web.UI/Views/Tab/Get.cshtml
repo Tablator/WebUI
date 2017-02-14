@@ -1,6 +1,4 @@
-﻿@model Tablator.Presentation.Web.UI.Controllers.TabViewModel
-
-
+﻿
 @{
     Layout = "_Layout";
     ViewBag.Title = "Tablator - Tab";
@@ -8,18 +6,15 @@
 
 <h1>Tablator</h1>
 
-
-@Html.Raw(Model.SVGContent)
-
 @section Scripts{
 
-    <script type="text/javascript">
+       <script type="text/javascript">
            $(document).ready(function () {
 
                alert(window.screen.width);
 
            });
-    </script>
-
-    <script src="~/Scripts/tab/get.js"></script>
+       </script>
+    
+        <script src="~/Scripts/tab/get.js"></script>
 }
