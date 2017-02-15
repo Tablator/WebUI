@@ -6,13 +6,11 @@
     "sourceMap": true,
     "target": "es5",
     "rootDir": "Scripts",
-    "outDir": "wwwroot/js"
+    "outDir": "wwwroot/js",
+    "compileOnSave": true
   },
   "exclude": [
     "node_modules",
     "wwwroot"
-  ],
-  "include": [
-    "Scripts/*.ts" 
   ]
 }
