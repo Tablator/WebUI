@@ -1,6 +1,6 @@
 var Tab = (function () {
     function Tab() {
-        alert('ts: ' + window.screen.width);
+        //alert('ts: ' + window.screen.width);
     }
     return Tab;
 }());

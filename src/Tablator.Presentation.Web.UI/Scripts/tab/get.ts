@@ -2,7 +2,7 @@
 
     constructor() {
 
-        alert('ts: ' + window.screen.width);
+        //alert('ts: ' + window.screen.width);
 
     }
 
