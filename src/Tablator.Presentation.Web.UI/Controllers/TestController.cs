@@ -13,6 +13,9 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
 using System.Reflection;
 using Tablator.BusinessModel;
+using Tablator.Infrastructure.Enumerations;
+using Tablator.Infrastructure.Extensions;
+using Tablator.Infrastructure.Constants;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -46,7 +49,7 @@ namespace Tablator.Presentation.Web.UI.Controllers
         {
             string json = string.Empty;
             Newtonsoft.Json.Linq.JObject o2;
-            
+
 
             using (System.IO.StreamReader file = System.IO.File.OpenText(System.IO.Path.Combine(_catalogRootDirectory, "01.tab")))
             {
@@ -58,7 +61,7 @@ namespace Tablator.Presentation.Web.UI.Controllers
             }
 
             Tablature tab = JsonConvert.DeserializeObject<Tablature>(json);
-            
+
             SVGTabGenerator tabGenerator = new SVGTabGenerator(tab, null, null);
             if (tabGenerator.TryBuild())
                 return View(new TabViewModel(tabGenerator.SVGContent));
@@ -190,10 +193,7 @@ namespace Tablator.Presentation.Web.UI.Controllers
         }
     }
 
-    public static class ChordConstants
-    {
-        public const char CompositionSeparator = '|';
-    }
+    
 
     public class GuitarChordDrawer
     {
@@ -263,16 +263,16 @@ namespace Tablator.Presentation.Web.UI.Controllers
                         // Free strings
                         return false;
                     case "C":
-                        AddFingersPositions(GuitarChordEnum.C.ToDescription(), cursorWidth, cursorHeight);
+                        AddFingersPositions(GuitarChordEnum.C.GetDisplayDescription(), cursorWidth, cursorHeight);
                         break;
                     case "A":
-                        AddFingersPositions(GuitarChordEnum.A.ToDescription(), cursorWidth, cursorHeight);
+                        AddFingersPositions(GuitarChordEnum.A.GetDisplayDescription(), cursorWidth, cursorHeight);
                         break;
                     case "G":
-                        AddFingersPositions(GuitarChordEnum.G.ToDescription(), cursorWidth, cursorHeight);
+                        AddFingersPositions(GuitarChordEnum.G.GetDisplayDescription(), cursorWidth, cursorHeight);
                         break;
                     case "Am":
-                        AddFingersPositions(GuitarChordEnum.Am.ToDescription(), cursorWidth, cursorHeight);
+                        AddFingersPositions(GuitarChordEnum.Am.GetDisplayDescription(), cursorWidth, cursorHeight);
                         break;
                     default:
                         // Fonctionne mais statique
@@ -291,7 +291,7 @@ namespace Tablator.Presentation.Web.UI.Controllers
                         //SVGContent += "<text x=\"" + (cursorWidth + 2) + "\" y=\"" + (cursorHeight + 17) + "\" font-family=\"" + Options.Typeface + "\" font-size=\"13\" fill =\"" + Options.MutedFreeStringColor + "\" text-anchor=\"start\">x</text>";
 
                         // Fonctionne et dynamique
-                        AddFingersPositions(GuitarChordEnum.A.ToDescription(), cursorWidth, cursorHeight);
+                        AddFingersPositions(GuitarChordEnum.A.GetDisplayDescription(), cursorWidth, cursorHeight);
 
                         break;
                         //default:
@@ -405,12 +405,7 @@ namespace Tablator.Presentation.Web.UI.Controllers
 
     #endregion
 
-    public enum TabGenerationStatus
-    {
-        Succeed = 1,
-        SucceedWithErrors = 2,
-        Failed = 3
-    }
+    
 
     public class SVGTabGenerator
     {
@@ -812,26 +807,7 @@ namespace Tablator.Presentation.Web.UI.Controllers
         }
     }
 
-    public enum InstrumentEnum
-    {
-        Guitar = 1
-    }
 
-    public enum GuitarChordEnum
-    {
-        [Description("|0|2|2|1|0|0")]
-        [Display(Name = "Am", Description = "Accord de LA mineur")]
-        Am,
-        [Description("|0|2|2|2|0|0")]
-        [Display(Name = "A", Description = "Accord de LA majeur")]
-        A,
-        [Description("|3|2|1|0|0|0")]
-        [Display(Name = "C", Description = "Accord de DO majeur")]
-        C,
-        [Description("3|2|0|0|3|3|0")]
-        [Display(Name = "G", Description = "Accord de SOL majeur")]
-        G
-    }
 
     public class SVGTabOptions
     {
@@ -873,11 +849,11 @@ namespace Tablator.Presentation.Web.UI.Controllers
         { }
     }
 
-    
 
-    
 
-    
+
+
+
 
     [JsonObject(MemberSerialization.OptIn)]
     public class Tablature
@@ -1087,159 +1063,5 @@ namespace Tablator.Presentation.Web.UI.Controllers
 
         [JsonProperty(PropertyName = "content")]
         public string Content { get; set; }
-    }
-
-    public enum LanguageContentItemEnum
-    {
-        Partie = 1
-    }
-
-    public enum LanguageContentItemPropertyEnum
-    {
-        Nom = 1,
-        Comment = 2,
-        Effet = 3
-    }
-
-    public enum TypeSonEnum
-    {
-        Note = 1,
-        Accord = 2
-    }
-
-    /// <summary>
-    /// Méthodes pour aider la manipulation des énumérations
-    /// </summary>
-    public static class EnumerationExtensions
-    {
-        /// <summary>
-        /// Retourne la valeur d'énumération correspondant à une description
-        /// </summary>
-        public static T GetValueFromDescription<T>(int description) => GetValueFromDescription<T>(description.ToString());
-
-        /// <summary>
-        /// Retourne la description d'une valeur d'énumération
-        /// </summary>
-        public static string ToDescription(this Enum value)
-        {
-            System.Reflection.FieldInfo fi = value.GetType().GetField(value.ToString());
-
-            System.ComponentModel.DescriptionAttribute[] attributes =
-                (System.ComponentModel.DescriptionAttribute[])fi.GetCustomAttributes(
-                typeof(System.ComponentModel.DescriptionAttribute),
-                false);
-
-            if (attributes != null &&
-                attributes.Length > 0)
-                return attributes[0].Description;
-            else
-                return value.ToString();
-        }
-
-        /// <summary>
-        /// Retourne la valeur d'énumération correspondant à une description
-        /// </summary>
-        public static T GetValueFromDescription<T>(string description)
-        {
-            var type = typeof(T);
-
-            //if (!type.IsEnum) throw new InvalidOperationException();
-            foreach (var field in type.GetFields())
-            {
-                var attribute = type.GetTypeInfo().GetCustomAttribute(
-                    typeof(System.ComponentModel.DescriptionAttribute)) as System.ComponentModel.DescriptionAttribute;
-                if (attribute != null)
-                {
-                    if (attribute.Description == description)
-                        return (T)field.GetValue(null);
-                }
-                else
-                {
-                    if (field.Name == description)
-                        return (T)field.GetValue(null);
-                }
-            }
-
-            return default(T);
-            //or throw new ArgumentException("Not found.", "description");
-        }
-
-        /// <summary>
-        /// Renvoie le nom à afficher d'une valeur d'énumération
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        public static string ToDisplayName(this Enum value)
-        {
-            System.ComponentModel.DataAnnotations.DisplayAttribute attr = value.GetType()
-                        .GetMember(value.ToString())
-                        .First()
-                        .GetCustomAttributes(false)
-                        .OfType<System.ComponentModel.DataAnnotations.DisplayAttribute>()
-                        .LastOrDefault();
-
-            return attr == null ? value.ToString() : attr.Name;
-        }
-
-        /// <summary>
-        /// Get display's name of an enum value
-        /// </summary>
-        /// <typeparam name="TEnum">enum's type</typeparam>
-        /// <param name="value">enum's value</param>
-        /// <returns></returns>
-        public static string GetDisplayName<TEnum>(this TEnum value) where TEnum : struct, IConvertible
-        {
-            if (value.GetAttributeOfType<TEnum, DisplayAttribute>() == null)
-                return value.ToString();
-
-            return value.GetAttributeOfType<TEnum, DisplayAttribute>().Name;
-        }
-
-        /// <summary>
-        /// Get display's description of an enum value
-        /// </summary>
-        /// <typeparam name="TEnum">enum's type</typeparam>
-        /// <param name="value">enum's value</param>
-        /// <returns></returns>
-        public static string GetDisplayDescription<TEnum>(this TEnum value) where TEnum : struct, IConvertible
-        {
-            if (value.GetAttributeOfType<TEnum, DisplayAttribute>() == null)
-                return value.ToString();
-
-            return value.GetAttributeOfType<TEnum, DisplayAttribute>().Description;
-        }
-
-        /// <summary>
-        /// Get display's name of an enum value
-        /// </summary>
-        /// <typeparam name="TEnum">enum's type</typeparam>
-        /// <param name="value">enum's value</param>
-        /// <returns></returns>
-        public static string GetDisplayShortName<TEnum>(this TEnum value) where TEnum : struct, IConvertible
-        {
-            if (value.GetAttributeOfType<TEnum, DisplayAttribute>() == null)
-                return value.ToString();
-
-            return value.GetAttributeOfType<TEnum, DisplayAttribute>().ShortName;
-        }
-
-        /// <summary>
-        /// Gets an attribute on an enum field value
-        /// </summary>
-        /// <typeparam name="T">The type of the attribute you want to retrieve</typeparam>
-        /// <param name="value">The enum value</param>
-        /// <returns>The attribute of type T that exists on the enum value</returns>
-        private static T GetAttributeOfType<TEnum, T>(this TEnum value)
-            where TEnum : struct, IConvertible
-            where T : Attribute
-        {
-
-            return value.GetType()
-                        .GetMember(value.ToString())
-                        .First()
-                        .GetCustomAttributes(false)
-                        .OfType<T>()
-                        .LastOrDefault();
-        }
     }
 }

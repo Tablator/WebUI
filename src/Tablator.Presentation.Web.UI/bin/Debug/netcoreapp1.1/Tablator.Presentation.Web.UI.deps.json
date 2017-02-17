@@ -1382,7 +1382,9 @@
       },
       "tablator.businessmodel/1.0.0": {
         "dependencies": {
-          "NETStandard.Library": "1.6.1"
+          "NETStandard.Library": "1.6.1",
+          "Tablator.DomainModel": "1.0.0",
+          "Tablator.Infrastructure": "1.0.0"
         },
         "runtime": {
           "Tablator.BusinessModel.dll": {}
@@ -1393,7 +1395,8 @@
       },
       "tablator.domainmodel/1.0.0": {
         "dependencies": {
-          "NETStandard.Library": "1.6.1"
+          "NETStandard.Library": "1.6.1",
+          "Newtonsoft.Json": "9.0.1"
         },
         "runtime": {
           "Tablator.DomainModel.dll": {}
