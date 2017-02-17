@@ -1,4 +1,4 @@
-﻿namespace Tablator.ViewModel
+﻿namespace Tablator.Presentation.Web.UI.Models
 {
     using BusinessModel;
     using Newtonsoft.Json;

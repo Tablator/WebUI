@@ -46,11 +46,7 @@ namespace Tablator.Presentation.Web.UI.Controllers
         {
             string json = string.Empty;
             Newtonsoft.Json.Linq.JObject o2;
-
-
-
-
-
+            
 
             using (System.IO.StreamReader file = System.IO.File.OpenText(System.IO.Path.Combine(_catalogRootDirectory, "01.tab")))
             {
@@ -61,34 +57,8 @@ namespace Tablator.Presentation.Web.UI.Controllers
                 }
             }
 
-
-
-
-
-
             Tablature tab = JsonConvert.DeserializeObject<Tablature>(json);
-
-
-
-
-            //return Content(json, "text/json");
-            //if (SVGTabGenerator.TryBuild(tab, out svgContent))
-            //{
-            //    return View(new TabViewModel(svgContent));
-            //}
-
-
-
-            //string svgContent = string.Empty;
-
-            //SVGTabGenerator tabGenerator = new SVGTabGenerator(tab, null, null);
-            //if (tabGenerator.TryBuild(out svgContent))
-            //    return View(new TabViewModel(svgContent));
-
-            //return Content(json, "text/json");
-
-
-
+            
             SVGTabGenerator tabGenerator = new SVGTabGenerator(tab, null, null);
             if (tabGenerator.TryBuild())
                 return View(new TabViewModel(tabGenerator.SVGContent));
@@ -863,206 +833,6 @@ namespace Tablator.Presentation.Web.UI.Controllers
         G
     }
 
-    //public class SVGTabGenerator
-    //{
-    //    private Tablature Tablature { get; }
-
-    //    private SVGTabOptions Options { get; }
-
-    //    private CultureInfo Culture { get; }
-
-    //    public SVGTabGenerator(Tablature tab, SVGTabOptions options, CultureInfo culture)
-    //    {
-    //        Tablature = tab;
-    //        Options = options == null ? new SVGTabOptions() : options;
-    //        Culture = culture == null ? CultureInfo.CurrentUICulture : culture;
-    //    }
-
-    //    public int cursorWith { get; set; } = 0;
-
-    //    public int cursorHeight { get; set; } = 20;
-
-    //    public int svgHeight { get; set; } = 20;
-
-    //    public bool TryBuild(out string svgContent)
-    //    {
-    //        svgContent = string.Empty;
-
-    //        try
-    //        {
-    //            // en-tête du document
-
-    //            // contenu tab
-
-    //            foreach (Partie part in Tablature.Parties)
-    //            {
-    //                if (!string.IsNullOrWhiteSpace(Tablature.GetPartName(part.Id, Culture)))
-    //                {
-    //                    cursorHeight += 30;
-    //                    svgContent += "<text x=\"0\"  y=\"" + cursorHeight + "\" font-family=\"Verdana\" font-size=\"15\">" + Tablature.GetPartName(part.Id, Culture) + "</text>";
-    //                    cursorHeight += 15;
-    //                    cursorHeight += 5;
-    //                    svgHeight += 50;
-    //                }
-
-    //                // On crée une ligne vide de tab
-    //                svgContent += CreateNewLine();
-
-    //                // Et on mets les notes
-
-    //                int iMesures = 0;
-    //                foreach (Mesure mes in part.Mesures)
-    //                {
-    //                    iMesures++;
-
-    //                    foreach (Temps tmp in mes.Temps)
-    //                    {
-    //                        foreach (Note not in tmp.Notes)
-    //                        {
-    //                            svgContent += CreateNote(not.Corde, not.Position);
-    //                        }
-    //                    }
-
-    //                    if (iMesures < part.Mesures.Count)
-    //                        svgContent += CreateVerticalLine();
-    //                }
-
-    //                // on mets à jour la hauteur du svg
-
-    //                cursorHeight += Options.StringSpacing * 5;
-    //                svgHeight += cursorHeight;
-    //            }
-
-    //            // Response
-
-    //            svgContent = "<svg width=\"" + Options.Width + "\" height=\"" + (svgHeight + 20) + "\">" + svgContent + "</svg>";
-
-    //            return true;
-    //        }
-    //        catch (Exception)
-    //        {
-    //            throw;
-    //        }
-    //        finally
-    //        {
-
-    //        }
-    //    }
-
-    //    public string CreateNote(int corde, int posi)
-    //    {
-    //        int yPosi = cursorHeight;
-    //        yPosi += (6 - corde) * 20;
-    //        string ret = "<circle cx=\"" + (cursorWith + 8) + "\" cy=\"" + yPosi + "\" r=\"8\" stroke=\"rgb(255, 255, 255)\" stroke-width=\"0\" fill=\"rgb(255, 255, 255)\" /><text x=\"" + (cursorWith + 4) + "\" y=\"" + (yPosi + 4) + "\" font-family=\"Verdana\" font-size=\"15\" fill=\"black\">" + posi + "</text>";
-    //        cursorWith += 25;
-    //        return ret;
-    //    }
-
-    //    public string CreateVerticalLine()
-    //    {
-    //        string ret = "<line x1=\"" + (cursorWith + 7) + "\" y1=\"" + cursorHeight + "\" x2=\"" + (cursorWith + 7) + "\" y2=\"" + (cursorHeight + (Options.StringSpacing * 5)) + "\" stroke=\"" + Options.StringColor + "\" stroke-width=\"" + Options.StringWidth + "\" fill=\"" + Options.StringColor + "\"></line>";
-    //        cursorWith += 14;
-    //        return ret;
-    //    }
-
-    //    /// <summary>
-    //    /// On crée une nouvelle ligne vide (cordes + inscription TAB etc, sans aucune note)
-    //    /// </summary>
-    //    /// <returns></returns>
-    //    public string CreateNewLine()
-    //    {
-    //        cursorWith = 0;
-
-    //        string ret = string.Empty;
-
-    //        // ligne début tab
-
-    //        ret = "<line x1=\"0\" y1=\"" + cursorHeight + "\" x2=\"0\" y2=\"" + (cursorHeight + (Options.StringSpacing * 5)) + "\" stroke=\"" + Options.StringColor + "\" stroke-width=\"" + Options.StringWidth + "\" fill=\"" + Options.StringColor + "\"></line>";
-
-    //        // cordes guitare
-
-    //        for (int i = 0; i < 6; i++)
-    //            ret += "<line x1=\"0\" y1=\"" + (cursorHeight + (Options.StringSpacing * i)) + "\" x2=\"100%\" y2=\"" + (cursorHeight + (Options.StringSpacing * i)) + "\" stroke=\"" + Options.StringColor + "\" stroke-width=\"" + Options.StringWidth + "\" fill=\"" + Options.StringColor + "\"></line>";
-
-    //        // inscription "TAB"
-
-    //        ret += "<text x=\"10\" y=\"" + (cursorHeight + Options.StringSpacing + 15) + "\" text-anchor=\"middle\" font-family=\"Verdana\" font-size=\"11\" stroke=\"" + Options.StringColor + "\" fill=\"" + Options.StringColor + "\">T</text>";
-    //        ret += "<text x=\"10\" y=\"" + (cursorHeight + (Options.StringSpacing * 2) + 15) + "\" text-anchor=\"middle\" font-family=\"Verdana\" font-size=\"11\" stroke=\"" + Options.StringColor + "\" fill=\"" + Options.StringColor + "\">A</text>";
-    //        ret += "<text x=\"10\" y=\"" + (cursorHeight + (Options.StringSpacing * 3) + 15) + "\" text-anchor=\"middle\" font-family=\"Verdana\" font-size=\"11\" stroke=\"" + Options.StringColor + "\" fill=\"" + Options.StringColor + "\">B</text>";
-
-    //        cursorWith += 50; // taille de tab plus un peu d'espace
-
-    //        // ligne début tab
-
-    //        ret += "<line x1=\"100%\" y1=\"" + cursorHeight + "\" x2=\"100%\" y2=\"" + (cursorHeight + (Options.StringSpacing * 5)) + "\" stroke=\"" + Options.StringColor + "\" stroke-width=\"" + Options.StringWidth + "\" fill=\"" + Options.StringColor + "\"></line>";
-
-    //        return ret;
-    //    }
-    //}
-
-    //public static class SVGTabGenerator
-    //{
-    //    public static bool TryBuild(Tablature tab, out string svgContent, SVGTabOptions options = null, CultureInfo culture = null)
-    //    {
-    //        svgContent = string.Empty;
-
-    //        if (culture == null)
-    //            culture = CultureInfo.CurrentUICulture;
-
-    //        if (options == null)
-    //            options = new SVGTabOptions();
-
-    //        int svgHeight = 0;
-    //        int cursorWith = 0, cursorHeight = 0;
-
-    //        string couleurCordes = "rgb(90, 90, 90)";
-    //        int widthCordes = 1;
-    //        int espacementcordes = 20;
-
-    //        try
-    //        {
-    //            // en-tête du document
-
-    //            // contenu tab
-
-    //            int partCount = 0;
-    //            foreach (Partie part in tab.Parties)
-    //            {
-    //                partCount++;
-    //                cursorWith = 0;
-    //                cursorHeight += 20;
-
-    //                // ligne début tab
-
-    //                svgContent += "<line x1=\"0\" y1=\"" + (cursorHeight + espacementcordes) + "\" x2=\"0\" y2=\"" + (cursorHeight + (espacementcordes * 4)) + "\" stroke=\"" + couleurCordes + "\" stroke-width=\"" + widthCordes + "\" fill=\"" + couleurCordes + "\"></line>";
-
-    //                // cordes guitare
-
-    //                for (int i = 1; i < 5; i++)
-    //                    svgContent += "<line x1=\"0\" y1=\"" + (cursorHeight + (espacementcordes * i)) + "\" x2=\"100%\" y2=\"" + (cursorHeight + (espacementcordes * i)) + "\" stroke=\"" + couleurCordes + "\" stroke-width=\"" + widthCordes + "\" fill=\"" + couleurCordes + "\"></line>";
-
-    //                // inscription "TAB"
-
-    //                // on mets à jour la hauteur du svg
-
-    //                svgHeight += (cursorHeight + (espacementcordes * 5));
-    //            }
-
-    //            // a la fin pour avoir la bonne hauteur
-    //            svgContent = "<svg width=\"" + options.width + "\" height=\"" + svgHeight + "\">" + svgContent + "</svg>";
-    //            return true;
-    //        }
-    //        catch (Exception)
-    //        {
-    //            throw;
-    //        }
-    //        finally
-    //        {
-
-    //        }
-    //    }
-    //}
-
     public class SVGTabOptions
     {
         /// <summary>
@@ -1103,45 +873,11 @@ namespace Tablator.Presentation.Web.UI.Controllers
         { }
     }
 
-    public enum FiguresDeNotes
-    {
-        Carree = 1,
-        Ronde = 2,
-        Blanche = 3,
-        Noire = 4,
-        Croche = 5,
-        DoubleCroche = 6,
-        TripleCroche = 7,
-        QuadrupleCroche = 8
-    }
+    
 
-    public enum FiguresDeSilences
-    {
-        BatonDePause = 1,
-        Pause = 2,
-        DemiPause = 3,
-        Soupir = 4,
-        DemiSoupir = 5,
-        QuartDeSoupi = 6,
-        HuitiemeDeSoupir = 7,
-        SeiziemeDeSoupir = 8
-    }
+    
 
-    /// <summary>
-    /// Sens de grattage des cordes
-    /// </summary>
-    /// <remarks>Utilisé pour indiquer dans quel sens gratter un accord par exemple</remarks>
-    public enum SensGrattageCordes
-    {
-        /// <summary>
-        /// En descente, des graves vers les aigus
-        /// </summary>
-        Down = 1,
-        /// <summary>
-        /// En remontée, des aigus vers les graves
-        /// </summary>
-        Up = 2
-    }
+    
 
     [JsonObject(MemberSerialization.OptIn)]
     public class Tablature

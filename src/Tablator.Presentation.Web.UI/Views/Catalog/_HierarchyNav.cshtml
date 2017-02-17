@@ -1,0 +1,16 @@
+﻿@model Tablator.BusinessModel.HierarchyModel
+@{
+}
+
+<li>
+    @Model.Name
+    @if (Model.Descendance != null)
+    {
+        <ul>
+            @foreach (Tablator.BusinessModel.HierarchyModel h in Model.Descendance)
+            {
+                await Html.RenderPartialAsync("_HierarchyNav", h);
+            }
+        </ul>
+    }
+</li>
