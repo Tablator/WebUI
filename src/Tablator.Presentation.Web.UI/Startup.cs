@@ -1,18 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Configuration;
-using Tablator.Presentation.Web.UI.Models.Configuration;
-using Serilog;
-
-namespace Tablator.Presentation.Web.UI
+﻿namespace Tablator.Presentation.Web.UI
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Logging;
+    using Microsoft.Extensions.Configuration;
+    using Tablator.Presentation.Web.UI.Models.Configuration;
+    using Serilog;
+    using Tablator.BusinessLogic.Services;
+
     public class Startup
     {
         public Startup(IHostingEnvironment env)
@@ -23,7 +24,7 @@ namespace Tablator.Presentation.Web.UI
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
-            
+
             Log.Logger = new LoggerConfiguration()
            .MinimumLevel.Debug().WriteTo.File(System.IO.Path.Combine(Configuration["Logging:FilePath"], $"log_{DateTime.Now.Year}-{DateTime.Now.Month}-{DateTime.Now.Day}.log"))
            .CreateLogger();
@@ -38,6 +39,9 @@ namespace Tablator.Presentation.Web.UI
             services.AddMvc();
 
             services.Configure<CatalogSettings>(options => Configuration.GetSection("Catalog").Bind(options));
+
+            services.AddScoped<IGuitarChordRenderingBuilderService, GuitarChordRenderingBuilderService>();
+            services.AddScoped<IGuitarTablatureRenderingBuilderService, GuitarTablatureRenderingBuilderService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

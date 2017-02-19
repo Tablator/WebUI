@@ -13,3 +13,5 @@ D:\Tablator\WebUI\src\Tablator.Presentation.Web.UI\bin\Debug\netcoreapp1.1\Tabla
 D:\Tablator\WebUI\src\Tablator.Presentation.Web.UI\bin\Debug\netcoreapp1.1\Tablator.BusinessModel.pdb
 D:\Tablator\WebUI\src\Tablator.Presentation.Web.UI\bin\Debug\netcoreapp1.1\Tablator.DomainModel.pdb
 D:\Tablator\WebUI\src\Tablator.Presentation.Web.UI\bin\Debug\netcoreapp1.1\Tablator.Infrastructure.pdb
+D:\Tablator\WebUI\src\Tablator.Presentation.Web.UI\bin\Debug\netcoreapp1.1\Tablator.BusinessLogic.dll
+D:\Tablator\WebUI\src\Tablator.Presentation.Web.UI\bin\Debug\netcoreapp1.1\Tablator.BusinessLogic.pdb
