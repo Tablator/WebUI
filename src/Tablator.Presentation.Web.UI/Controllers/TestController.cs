@@ -32,14 +32,18 @@ namespace Tablator.Presentation.Web.UI.Controllers
 
         private readonly IGuitarTablatureRenderingBuilderService _guitarTablatureRenderingBuilderService;
 
+        private readonly ITablatureRenderingBuilderService _tablatureRenderingBuilderService;
+
         public TestController(
             ILoggerFactory loggerFactory
             , IOptions<CatalogSettings> catalogSettings
-            , IGuitarTablatureRenderingBuilderService guitarTablatureRenderingBuilderService)
+            , IGuitarTablatureRenderingBuilderService guitarTablatureRenderingBuilderService
+            , ITablatureRenderingBuilderService tablatureRenderingBuilderService)
         {
             _logger = loggerFactory.CreateLogger<TestController>();
             _catalogRootDirectory = catalogSettings.Value.RootDirectory;
             _guitarTablatureRenderingBuilderService = guitarTablatureRenderingBuilderService;
+            _tablatureRenderingBuilderService = tablatureRenderingBuilderService;
         }
 
         [HttpGet]
@@ -69,19 +73,16 @@ namespace Tablator.Presentation.Web.UI.Controllers
 
             Tablature tab = JsonConvert.DeserializeObject<Tablature>(json);
 
-            //SVGTabGenerator tabGenerator = new SVGTabGenerator(tab, null, null);
-            //if (tabGenerator.TryBuild())
-            //    return View(new TabViewModel(tabGenerator.SVGContent));
 
-            TablatureRenderingOptions opts = new TablatureRenderingOptions();
-            _guitarTablatureRenderingBuilderService.Init(opts, tab);
+            //TablatureRenderingOptions opts = new TablatureRenderingOptions();
+            //_guitarTablatureRenderingBuilderService.Init(opts, tab);
 
-            TabGenerationStatus status;
-            string ret = null;
-            if (_guitarTablatureRenderingBuilderService.TryBuild(out status, out ret))
-            {
-                return View(new TabViewModel(ret));
-            }
+            //TabGenerationStatus status;
+            //string ret = null;
+            //if (_guitarTablatureRenderingBuilderService.TryBuild(out status, out ret))
+            //{
+            //    return View(new TabViewModel(ret));
+            //}
 
             return Content(json, "text/json");
         }
@@ -112,31 +113,59 @@ namespace Tablator.Presentation.Web.UI.Controllers
 
             Tablature tab = JsonConvert.DeserializeObject<Tablature>(json);
 
-            //SVGTabOptions opts = new SVGTabOptions();
+
+            //TablatureRenderingOptions opts = new TablatureRenderingOptions();
             //opts.Width = width;
+            //_guitarTablatureRenderingBuilderService.Init(opts, tab);
 
-            //SVGTabGenerator tabGenerator = new SVGTabGenerator(tab, opts, null);
-            //if (tabGenerator.TryBuild())
-            //    return View(new TabViewModel(tabGenerator.SVGContent));
+            //TabGenerationStatus status;
+            //string ret = null;
+            //if (_guitarTablatureRenderingBuilderService.TryBuild(out status, out ret))
+            //{
+            //    return View(new TabViewModel(ret));
+            //}
 
-            //return Content(json, "text/json");
+            return Content(json, "text/json");
+        }
+
+        [HttpGet]
+        public IActionResult Tab03([FromQuery]int width)
+        {
+            string json = string.Empty;
+            Newtonsoft.Json.Linq.JObject o2;
+
+
+            using (StreamReader file = System.IO.File.OpenText(Path.Combine(_catalogRootDirectory, "02.tab")))
+            {
+                using (JsonTextReader rdr = new JsonTextReader(file))
+                {
+                    o2 = (Newtonsoft.Json.Linq.JObject)Newtonsoft.Json.Linq.JToken.ReadFrom(rdr);
+                    json = o2.ToString();
+                }
+            }
+
+
+            if (width <= 0)
+                width = 890;
+
+            Tablature tab = JsonConvert.DeserializeObject<Tablature>(json);
 
             TablatureRenderingOptions opts = new TablatureRenderingOptions();
             opts.Width = width;
-            _guitarTablatureRenderingBuilderService.Init(opts, tab);
+            _tablatureRenderingBuilderService.Init(opts, tab);
 
             TabGenerationStatus status;
             string ret = null;
-            if (_guitarTablatureRenderingBuilderService.TryBuild(out status, out ret))
+            if (_tablatureRenderingBuilderService.TryBuild(InstrumentEnum.Guitar, out status, out ret))
             {
-                return View(new TabViewModel(ret));
+                return View("Tab02", new TabViewModel(ret));
             }
 
             return Content(json, "text/json");
         }
     }
 
-    
+
 
     #region chord
 

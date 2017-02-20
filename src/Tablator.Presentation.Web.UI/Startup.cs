@@ -42,6 +42,7 @@
 
             services.AddScoped<IGuitarChordRenderingBuilderService, GuitarChordRenderingBuilderService>();
             services.AddScoped<IGuitarTablatureRenderingBuilderService, GuitarTablatureRenderingBuilderService>();
+            services.AddScoped<ITablatureRenderingBuilderService, TablatureRenderingBuilderService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
