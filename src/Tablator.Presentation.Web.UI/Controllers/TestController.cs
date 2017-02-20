@@ -18,6 +18,7 @@ using Tablator.Infrastructure.Extensions;
 using Tablator.Infrastructure.Constants;
 using Tablator.BusinessLogic.Services;
 using Tablator.Infrastructure.Models;
+using Tablator.Presentation.Web.UI.Models;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -135,15 +136,7 @@ namespace Tablator.Presentation.Web.UI.Controllers
         }
     }
 
-    public class TabViewModel
-    {
-        public string SVGContent { get; set; }
-
-        public TabViewModel(string svgContent)
-        {
-            SVGContent = svgContent;
-        }
-    }
+    
 
     #region chord
 

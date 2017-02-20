@@ -11,10 +11,21 @@ using Tablator.Presentation.Web.UI.Models.Configuration;
 
 namespace Tablator.Presentation.Web.UI.Controllers
 {
+    /// <summary>
+    /// Controller to deal with tablatures
+    /// </summary>
     public class TabController : Controller
     {
+        #region Ctor & Pprts
+
+        /// <summary>
+        /// Service to perform logging
+        /// </summary>
         private readonly ILogger _logger;
 
+        /// <summary>
+        /// Catalog's root directory
+        /// </summary>
         private readonly string _catalogRootDirectory;
 
         public TabController(
@@ -24,6 +35,8 @@ namespace Tablator.Presentation.Web.UI.Controllers
             _logger = loggerFactory.CreateLogger<TabController>();
             _catalogRootDirectory = catalogSettings.Value.RootDirectory;
         }
+
+        #endregion
 
         [HttpGet]
         public IActionResult Get()
