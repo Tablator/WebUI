@@ -30,19 +30,19 @@ namespace Tablator.Presentation.Web.UI.Controllers
 
         private readonly string _catalogRootDirectory;
 
-        private readonly IGuitarTablatureRenderingBuilderService _guitarTablatureRenderingBuilderService;
+        //private readonly IGuitarTablatureRenderingBuilderService _guitarTablatureRenderingBuilderService;
 
         private readonly ITablatureRenderingBuilderService _tablatureRenderingBuilderService;
 
         public TestController(
             ILoggerFactory loggerFactory
             , IOptions<CatalogSettings> catalogSettings
-            , IGuitarTablatureRenderingBuilderService guitarTablatureRenderingBuilderService
+           // , IGuitarTablatureRenderingBuilderService guitarTablatureRenderingBuilderService
             , ITablatureRenderingBuilderService tablatureRenderingBuilderService)
         {
             _logger = loggerFactory.CreateLogger<TestController>();
             _catalogRootDirectory = catalogSettings.Value.RootDirectory;
-            _guitarTablatureRenderingBuilderService = guitarTablatureRenderingBuilderService;
+            //_guitarTablatureRenderingBuilderService = guitarTablatureRenderingBuilderService;
             _tablatureRenderingBuilderService = tablatureRenderingBuilderService;
         }
 
@@ -56,76 +56,10 @@ namespace Tablator.Presentation.Web.UI.Controllers
         }
 
         [HttpGet]
-        public IActionResult Tab01()
-        {
-            string json = string.Empty;
-            Newtonsoft.Json.Linq.JObject o2;
-
-
-            using (System.IO.StreamReader file = System.IO.File.OpenText(System.IO.Path.Combine(_catalogRootDirectory, "01.tab")))
-            {
-                using (JsonTextReader rdr = new JsonTextReader(file))
-                {
-                    o2 = (Newtonsoft.Json.Linq.JObject)Newtonsoft.Json.Linq.JToken.ReadFrom(rdr);
-                    json = o2.ToString();
-                }
-            }
-
-            Tablature tab = JsonConvert.DeserializeObject<Tablature>(json);
-
-
-            //TablatureRenderingOptions opts = new TablatureRenderingOptions();
-            //_guitarTablatureRenderingBuilderService.Init(opts, tab);
-
-            //TabGenerationStatus status;
-            //string ret = null;
-            //if (_guitarTablatureRenderingBuilderService.TryBuild(out status, out ret))
-            //{
-            //    return View(new TabViewModel(ret));
-            //}
-
-            return Content(json, "text/json");
-        }
-
-        [HttpGet]
         public IActionResult Chord01()
         {
             GuitarChordManager gcm = new Controllers.GuitarChordManager();
             return Content(null, "text/json");
-        }
-
-        [HttpGet]
-        public IActionResult Tab02([FromQuery]int width)
-        {
-            string json = string.Empty;
-            Newtonsoft.Json.Linq.JObject o2;
-
-
-            using (System.IO.StreamReader file = System.IO.File.OpenText(System.IO.Path.Combine(_catalogRootDirectory, "01.tab")))
-            {
-                using (JsonTextReader rdr = new JsonTextReader(file))
-                {
-                    o2 = (Newtonsoft.Json.Linq.JObject)Newtonsoft.Json.Linq.JToken.ReadFrom(rdr);
-                    json = o2.ToString();
-                }
-            }
-
-
-            Tablature tab = JsonConvert.DeserializeObject<Tablature>(json);
-
-
-            //TablatureRenderingOptions opts = new TablatureRenderingOptions();
-            //opts.Width = width;
-            //_guitarTablatureRenderingBuilderService.Init(opts, tab);
-
-            //TabGenerationStatus status;
-            //string ret = null;
-            //if (_guitarTablatureRenderingBuilderService.TryBuild(out status, out ret))
-            //{
-            //    return View(new TabViewModel(ret));
-            //}
-
-            return Content(json, "text/json");
         }
 
         [HttpGet]
