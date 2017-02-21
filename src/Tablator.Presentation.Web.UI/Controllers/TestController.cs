@@ -97,6 +97,15 @@ namespace Tablator.Presentation.Web.UI.Controllers
 
             return Content(json, "text/json");
         }
+
+        [HttpGet]
+        public IActionResult GetValueFromDisplayDescriptionUnitTest()
+        {
+            //TODO: remove to unit test
+            GuitarChordEnum g = EnumerationExtensions.GetValueFromDisplayDescription<GuitarChordEnum>("|0|2|2|1|0|0");
+
+            return Content(null, "text/json");
+        }
     }
 
 
