@@ -32,80 +32,87 @@ namespace Tablator.Presentation.Web.UI.Controllers
 
         //private readonly IGuitarTablatureRenderingBuilderService _guitarTablatureRenderingBuilderService;
 
-        private readonly ITablatureRenderingBuilderService _tablatureRenderingBuilderService;
+        //private readonly ITablatureRenderingBuilderService _tablatureRenderingBuilderService;
+
+        private readonly ICatalogService _catalogService;
 
         public TestController(
             ILoggerFactory loggerFactory
             , IOptions<CatalogSettings> catalogSettings
-           // , IGuitarTablatureRenderingBuilderService guitarTablatureRenderingBuilderService
-            , ITablatureRenderingBuilderService tablatureRenderingBuilderService)
+            // , IGuitarTablatureRenderingBuilderService guitarTablatureRenderingBuilderService
+            //, ITablatureRenderingBuilderService tablatureRenderingBuilderService
+            , ICatalogService catalogService)
         {
             _logger = loggerFactory.CreateLogger<TestController>();
             _catalogRootDirectory = catalogSettings.Value.RootDirectory;
             //_guitarTablatureRenderingBuilderService = guitarTablatureRenderingBuilderService;
-            _tablatureRenderingBuilderService = tablatureRenderingBuilderService;
+            //_tablatureRenderingBuilderService = tablatureRenderingBuilderService;
+            _catalogService = catalogService;
         }
 
         [HttpGet]
-        public IActionResult Index()
-        {
-            CatalogModel c = new CatalogModel();
-            c.Load(_catalogRootDirectory);
+        public async Task<IActionResult> Index() => View((await _catalogService.GetCatalog()).GetArborescence());
 
-            return View(c.GetArborescence());
-        }
+        //[HttpGet]
+        //public IActionResult Index()
+        //{
+        //    CatalogModel c = new CatalogModel();
+        //    c.Load(_catalogRootDirectory);
 
-        [HttpGet]
-        public IActionResult Chord01()
-        {
-            GuitarChordManager gcm = new Controllers.GuitarChordManager();
-            return Content(null, "text/json");
-        }
+        //    return View(c.GetArborescence());
+        //}
 
-        [HttpGet]
-        public IActionResult Tab03([FromQuery]int width)
-        {
-            string json = string.Empty;
-            Newtonsoft.Json.Linq.JObject o2;
+        //[HttpGet]
+        //public IActionResult Chord01()
+        //{
+        //    GuitarChordManager gcm = new Controllers.GuitarChordManager();
+        //    return Content(null, "text/json");
+        //}
 
-
-            using (StreamReader file = System.IO.File.OpenText(Path.Combine(_catalogRootDirectory, "02.tab")))
-            {
-                using (JsonTextReader rdr = new JsonTextReader(file))
-                {
-                    o2 = (Newtonsoft.Json.Linq.JObject)Newtonsoft.Json.Linq.JToken.ReadFrom(rdr);
-                    json = o2.ToString();
-                }
-            }
+        //[HttpGet]
+        //public IActionResult Tab03([FromQuery]int width)
+        //{
+        //    string json = string.Empty;
+        //    Newtonsoft.Json.Linq.JObject o2;
 
 
-            if (width <= 0)
-                width = 890;
+        //    using (StreamReader file = System.IO.File.OpenText(Path.Combine(_catalogRootDirectory, "02.tab")))
+        //    {
+        //        using (JsonTextReader rdr = new JsonTextReader(file))
+        //        {
+        //            o2 = (Newtonsoft.Json.Linq.JObject)Newtonsoft.Json.Linq.JToken.ReadFrom(rdr);
+        //            json = o2.ToString();
+        //        }
+        //    }
 
-            Tablature tab = JsonConvert.DeserializeObject<Tablature>(json);
 
-            TablatureRenderingOptions opts = new TablatureRenderingOptions();
-            opts.Width = width;
-            _tablatureRenderingBuilderService.Init(opts, tab);
+        //    if (width <= 0)
+        //        width = 890;
 
-            TabGenerationStatus status;
-            string ret = null;
-            if (_tablatureRenderingBuilderService.TryBuild(InstrumentEnum.Guitar, out status, out ret))
-            {
-                return View("Tab02", new TabViewModel(ret));
-            }
+        //    Tablature tab = JsonConvert.DeserializeObject<Tablature>(json);
 
-            return Content(json, "text/json");
-        }
+        //    TablatureRenderingOptions opts = new TablatureRenderingOptions();
+        //    opts.Width = width;
+        //    _tablatureRenderingBuilderService.Init(opts, tab);
 
-        [HttpGet]
-        public IActionResult GetValueFromDisplayDescriptionUnitTest()
-        {
-            //TODO: remove to unit test
-            GuitarChordEnum g = EnumerationExtensions.GetValueFromDisplayDescription<GuitarChordEnum>("|0|2|2|1|0|0");
+        //    TabGenerationStatus status;
+        //    string ret = null;
+        //    if (_tablatureRenderingBuilderService.TryBuild(InstrumentEnum.Guitar, out status, out ret))
+        //    {
+        //        return View("Tab02", new TabViewModel(ret));
+        //    }
 
-            return Content(null, "text/json");
-        }
+        //    return Content(json, "text/json");
+        //}
+
+        //[HttpGet]
+        //public IActionResult GetValueFromDisplayDescriptionUnitTest()
+        //{
+        //    //TODO: remove to unit test
+        //    GuitarChordEnum g = EnumerationExtensions.GetValueFromDisplayDescription<GuitarChordEnum>("|0|2|2|1|0|0");
+
+        //    return Content(null, "text/json");
+        //}
     }
 
 

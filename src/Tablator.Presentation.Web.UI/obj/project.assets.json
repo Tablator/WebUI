@@ -3646,6 +3646,7 @@
         "dependencies": {
           "NETStandard.Library": "1.6.0",
           "Tablator.BusinessModel": "1.0.0",
+          "Tablator.DataAccess": "1.0.0",
           "Tablator.DomainModel": "1.0.0",
           "Tablator.Infrastructure": "1.0.0"
         }
@@ -3659,12 +3660,23 @@
           "Tablator.Infrastructure": "1.0.0"
         }
       },
+      "Tablator.DataAccess/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v1.6",
+        "dependencies": {
+          "NETStandard.Library": "1.6.0",
+          "Tablator.BusinessModel": "1.0.0",
+          "Tablator.DomainModel": "1.0.0",
+          "Tablator.Infrastructure": "1.0.0"
+        }
+      },
       "Tablator.DomainModel/1.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v1.6",
         "dependencies": {
           "NETStandard.Library": "1.6.0",
-          "Newtonsoft.Json": "9.0.1"
+          "Newtonsoft.Json": "9.0.1",
+          "Tablator.Infrastructure": "1.0.0"
         }
       },
       "Tablator.Infrastructure/1.0.0": {
@@ -3672,6 +3684,7 @@
         "framework": ".NETStandard,Version=v1.6",
         "dependencies": {
           "NETStandard.Library": "1.6.1",
+          "Newtonsoft.Json": "9.0.1",
           "System.ComponentModel": "4.3.0",
           "System.ComponentModel.Annotations": "4.3.0"
         }
@@ -9835,6 +9848,11 @@
       "path": "../../../core/Tablator.BusinessModel/Tablator.BusinessModel.csproj",
       "msbuildProject": "../../../core/Tablator.BusinessModel/Tablator.BusinessModel.csproj"
     },
+    "Tablator.DataAccess/1.0.0": {
+      "type": "project",
+      "path": "../../../Core/Tablator.DataAccess/Tablator.DataAccess.csproj",
+      "msbuildProject": "../../../Core/Tablator.DataAccess/Tablator.DataAccess.csproj"
+    },
     "Tablator.DomainModel/1.0.0": {
       "type": "project",
       "path": "../../../core/Tablator.DomainModel/Tablator.DomainModel.csproj",
@@ -9866,6 +9884,7 @@
       "Serilog.Extensions.Logging.File >= 1.0.0",
       "Tablator.BusinessLogic",
       "Tablator.BusinessModel",
+      "Tablator.DataAccess",
       "Tablator.DomainModel",
       "Tablator.Infrastructure"
     ]
@@ -9888,6 +9907,9 @@
           "projectReferences": {
             "D:\\Tablator\\core\\Tablator.BusinessLogic\\Tablator.BusinessLogic.csproj": {
               "projectPath": "D:\\Tablator\\core\\Tablator.BusinessLogic\\Tablator.BusinessLogic.csproj"
+            },
+            "D:\\Tablator\\Core\\Tablator.DataAccess\\Tablator.DataAccess.csproj": {
+              "projectPath": "D:\\Tablator\\Core\\Tablator.DataAccess\\Tablator.DataAccess.csproj"
             },
             "D:\\Tablator\\core\\Tablator.DomainModel\\Tablator.DomainModel.csproj": {
               "projectPath": "D:\\Tablator\\core\\Tablator.DomainModel\\Tablator.DomainModel.csproj"

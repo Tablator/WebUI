@@ -39,6 +39,7 @@
           "Serilog.Extensions.Logging.File": "1.0.0",
           "Tablator.BusinessLogic": "1.0.0",
           "Tablator.BusinessModel": "1.0.0",
+          "Tablator.DataAccess": "1.0.0",
           "Tablator.DomainModel": "1.0.0",
           "Tablator.Infrastructure": "1.0.0"
         },
@@ -1385,6 +1386,7 @@
         "dependencies": {
           "NETStandard.Library": "1.6.1",
           "Tablator.BusinessModel": "1.0.0",
+          "Tablator.DataAccess": "1.0.0",
           "Tablator.DomainModel": "1.0.0",
           "Tablator.Infrastructure": "1.0.0"
         },
@@ -1408,10 +1410,25 @@
           "Tablator.BusinessModel.dll": {}
         }
       },
+      "tablator.dataaccess/1.0.0": {
+        "dependencies": {
+          "NETStandard.Library": "1.6.1",
+          "Tablator.BusinessModel": "1.0.0",
+          "Tablator.DomainModel": "1.0.0",
+          "Tablator.Infrastructure": "1.0.0"
+        },
+        "runtime": {
+          "Tablator.DataAccess.dll": {}
+        },
+        "compile": {
+          "Tablator.DataAccess.dll": {}
+        }
+      },
       "tablator.domainmodel/1.0.0": {
         "dependencies": {
           "NETStandard.Library": "1.6.1",
-          "Newtonsoft.Json": "9.0.1"
+          "Newtonsoft.Json": "9.0.1",
+          "Tablator.Infrastructure": "1.0.0"
         },
         "runtime": {
           "Tablator.DomainModel.dll": {}
@@ -1423,6 +1440,7 @@
       "tablator.infrastructure/1.0.0": {
         "dependencies": {
           "NETStandard.Library": "1.6.1",
+          "Newtonsoft.Json": "9.0.1",
           "System.ComponentModel": "4.3.0",
           "System.ComponentModel.Annotations": "4.3.0"
         },
@@ -3726,6 +3744,11 @@
       "sha512": ""
     },
     "tablator.businessmodel/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "tablator.dataaccess/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

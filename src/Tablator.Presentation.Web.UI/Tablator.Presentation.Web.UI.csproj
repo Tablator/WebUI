@@ -29,6 +29,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\core\Tablator.BusinessLogic\Tablator.BusinessLogic.csproj" />
     <ProjectReference Include="..\..\..\core\Tablator.BusinessModel\Tablator.BusinessModel.csproj" />
+    <ProjectReference Include="..\..\..\Core\Tablator.DataAccess\Tablator.DataAccess.csproj" />
     <ProjectReference Include="..\..\..\core\Tablator.DomainModel\Tablator.DomainModel.csproj" />
     <ProjectReference Include="..\..\..\core\Tablator.Infrastructure\Tablator.Infrastructure.csproj" />
   </ItemGroup>

@@ -13,6 +13,7 @@
     using Tablator.Presentation.Web.UI.Models.Configuration;
     using Serilog;
     using Tablator.BusinessLogic.Services;
+    using DataAccess.Repositories;
 
     public class Startup
     {
@@ -40,9 +41,16 @@
 
             services.Configure<CatalogSettings>(options => Configuration.GetSection("Catalog").Bind(options));
 
-            services.AddScoped<IGuitarChordRenderingBuilderService, GuitarChordRenderingBuilderService>();
-            services.AddScoped<IGuitarTablatureRenderingBuilderService, GuitarTablatureRenderingBuilderService>();
-            services.AddScoped<ITablatureRenderingBuilderService, TablatureRenderingBuilderService>();
+            services.AddScoped<ICatalogRepository, CatalogRepository>(repo => new CatalogRepository(Configuration.GetSection("Catalog")["RootDirectory"]));
+            services.AddScoped<ITablatureRepository, TablatureRepository>(repo => new TablatureRepository(Configuration.GetSection("Catalog")["RootDirectory"]));
+
+            //services.AddScoped<IStorageFileService, StorageFileService>(serv => new StorageFileService(Configuration.GetSection("Catalog")["RootDirectory"]));
+            services.AddScoped<ICatalogService, CatalogService>();
+            services.AddScoped<ITablatureService, TablatureService>();
+
+            //services.AddScoped<IGuitarChordRenderingBuilderService, GuitarChordRenderingBuilderService>();
+            //services.AddScoped<IGuitarTablatureRenderingBuilderService, GuitarTablatureRenderingBuilderService>();
+            //services.AddScoped<ITablatureRenderingBuilderService, TablatureRenderingBuilderService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
