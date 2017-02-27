@@ -36,22 +36,50 @@ namespace Tablator.Presentation.Web.UI.Controllers
 
         private readonly ICatalogService _catalogService;
 
+        private readonly ITablatureService _tabService;
+
         public TestController(
             ILoggerFactory loggerFactory
             , IOptions<CatalogSettings> catalogSettings
             // , IGuitarTablatureRenderingBuilderService guitarTablatureRenderingBuilderService
             //, ITablatureRenderingBuilderService tablatureRenderingBuilderService
-            , ICatalogService catalogService)
+            , ICatalogService catalogService
+            , ITablatureService tabService)
         {
             _logger = loggerFactory.CreateLogger<TestController>();
             _catalogRootDirectory = catalogSettings.Value.RootDirectory;
             //_guitarTablatureRenderingBuilderService = guitarTablatureRenderingBuilderService;
             //_tablatureRenderingBuilderService = tablatureRenderingBuilderService;
             _catalogService = catalogService;
+            _tabService = tabService;
         }
 
         [HttpGet]
         public async Task<IActionResult> Index() => View((await _catalogService.GetCatalog()).GetArborescence());
+
+        [HttpGet]
+        public async Task<IActionResult> Tab01()
+        {
+            BusinessModel.Tablature.IInstrumentTablature tab = _tabService.Get(new Guid("4BBD4A605EDF40B2BF917687E3A94755"), InstrumentEnum.Guitar);
+
+            if (width <= 0)
+                width = 890;
+
+            Tablature tab = JsonConvert.DeserializeObject<Tablature>(json);
+
+            TablatureRenderingOptions opts = new TablatureRenderingOptions();
+            opts.Width = width;
+            _tablatureRenderingBuilderService.Init(opts, tab);
+
+            TabGenerationStatus status;
+            string ret = null;
+            if (_tablatureRenderingBuilderService.TryBuild(InstrumentEnum.Guitar, out status, out ret))
+            {
+                return View("Tab02", new TabViewModel(ret));
+            }
+
+            return Content(json, "text/json");
+        }
 
         //[HttpGet]
         //public IActionResult Index()
@@ -154,7 +182,61 @@ namespace Tablator.Presentation.Web.UI.Controllers
         }
     }
 
+    public class GuitarChord : Chord
+    {
+        [JsonProperty(PropertyName = "capo")]
+        public int Capo { get; }
 
+        private string _Composition;
+
+        public override string Composition
+        {
+            get
+            {
+                if (string.IsNullOrWhiteSpace(_Composition))
+                {
+                    _Composition = string.Empty;
+                    foreach (KeyValuePair<int, int?> kvp in Positions.OrderBy(x => x.Key))
+                        _Composition += kvp.Value + ChordConstants.CompositionSeparator;
+                    _Composition += Capo;
+                }
+
+                return _Composition;
+            }
+        }
+
+        public GuitarChord()
+        {
+
+        }
+    }
+
+    public class GuitarChordCollection : List<GuitarChord>
+    {
+        public GuitarChordCollection()
+        { }
+    }
+
+    [JsonObject(MemberSerialization.OptIn)]
+    public class Chord
+    {
+        [JsonProperty(PropertyName = "name")]
+        public string Name { get; }
+
+        [JsonProperty(PropertyName = "key")]
+        public char Key { get; }
+
+        [JsonProperty(PropertyName = "positions")]
+        public Dictionary<int, int?> Positions { get; }
+
+        public virtual string Composition { get; }
+    }
+
+    public class ChordCollection : List<Chord>
+    {
+        public ChordCollection()
+        { }
+    }
 
 
 

@@ -1,17 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using Tablator.Presentation.Web.UI.Models.Configuration;
-using Microsoft.Extensions.Options;
-using Tablator.BusinessModel;
-
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
-namespace Tablator.Presentation.Web.UI.Controllers
+﻿namespace Tablator.Presentation.Web.UI.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Logging;
+    using Tablator.Presentation.Web.UI.Models.Configuration;
+    using Microsoft.Extensions.Options;
+    using Tablator.BusinessModel;
+    using BusinessLogic.Services;
+
     /// <summary>
     /// Controller to deal with catalog
     /// </summary>
@@ -29,23 +28,30 @@ namespace Tablator.Presentation.Web.UI.Controllers
         /// </summary>
         private readonly string _catalogRootDirectory;
 
+        /// <summary>
+        /// Service to deal with the catalog
+        /// </summary>
+        private readonly ICatalogService _catalogService;
+
+        /// <summary>
+        /// New instance of catalog controller
+        /// </summary>
+        /// <param name="loggerFactory"></param>
+        /// <param name="catalogSettings"></param>
+        /// <param name="catalogService"></param>
         public CatalogController(
             ILoggerFactory loggerFactory
-            , IOptions<CatalogSettings> catalogSettings)
+            , IOptions<CatalogSettings> catalogSettings
+            , ICatalogService catalogService)
         {
             _logger = loggerFactory.CreateLogger<TestController>();
             _catalogRootDirectory = catalogSettings.Value.RootDirectory;
+            _catalogService = catalogService;
         }
 
         #endregion
 
         [HttpGet]
-        public IActionResult Index()
-        {
-            CatalogModel c = new CatalogModel();
-            c.Load(_catalogRootDirectory);
-
-            return View(c.GetArborescence());
-        }
+        public async Task<IActionResult> Index() => View((await _catalogService.GetCatalog()).GetArborescence());
     }
 }

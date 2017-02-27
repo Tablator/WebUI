@@ -3648,7 +3648,8 @@
           "Tablator.BusinessModel": "1.0.0",
           "Tablator.DataAccess": "1.0.0",
           "Tablator.DomainModel": "1.0.0",
-          "Tablator.Infrastructure": "1.0.0"
+          "Tablator.Infrastructure": "1.0.0",
+          "Tablator.Rendering.SVG": "1.0.0"
         }
       },
       "Tablator.BusinessModel/1.0.0": {
@@ -3687,6 +3688,25 @@
           "Newtonsoft.Json": "9.0.1",
           "System.ComponentModel": "4.3.0",
           "System.ComponentModel.Annotations": "4.3.0"
+        }
+      },
+      "Tablator.Rendering.Core/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v1.6",
+        "dependencies": {
+          "NETStandard.Library": "1.6.0",
+          "Tablator.BusinessModel": "1.0.0",
+          "Tablator.Infrastructure": "1.0.0"
+        }
+      },
+      "Tablator.Rendering.SVG/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v1.6",
+        "dependencies": {
+          "NETStandard.Library": "1.6.0",
+          "Tablator.BusinessModel": "1.0.0",
+          "Tablator.Infrastructure": "1.0.0",
+          "Tablator.Rendering.Core": "1.0.0"
         }
       }
     }
@@ -9862,6 +9882,16 @@
       "type": "project",
       "path": "../../../core/Tablator.Infrastructure/Tablator.Infrastructure.csproj",
       "msbuildProject": "../../../core/Tablator.Infrastructure/Tablator.Infrastructure.csproj"
+    },
+    "Tablator.Rendering.Core/1.0.0": {
+      "type": "project",
+      "path": "../../../core/Tablator.Rendering.Core/Tablator.Rendering.Core.csproj",
+      "msbuildProject": "../../../core/Tablator.Rendering.Core/Tablator.Rendering.Core.csproj"
+    },
+    "Tablator.Rendering.SVG/1.0.0": {
+      "type": "project",
+      "path": "../../../core/Tablator.Rendering.SVG/Tablator.Rendering.SVG.csproj",
+      "msbuildProject": "../../../core/Tablator.Rendering.SVG/Tablator.Rendering.SVG.csproj"
     }
   },
   "projectFileDependencyGroups": {
