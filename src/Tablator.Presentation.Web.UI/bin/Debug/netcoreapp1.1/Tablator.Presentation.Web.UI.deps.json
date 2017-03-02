@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v1.1",
-    "signature": "d2b5c4e88a0d246ae586dee0e72ca30ab2c46a4e"
+    "signature": "69f151e5953f33ffed385e852806be7417e55a3a"
   },
   "compilationOptions": {
     "defines": [
@@ -35,13 +35,15 @@
           "Microsoft.Extensions.Options.ConfigurationExtensions": "1.1.0",
           "Microsoft.NETCore.App": "1.1.0",
           "Newtonsoft.Json": "9.0.1",
-          "Serilog.Extensions.Logging": "1.3.1",
+          "Serilog.Extensions.Logging": "1.4.0",
           "Serilog.Extensions.Logging.File": "1.0.0",
           "Tablator.BusinessLogic": "1.0.0",
           "Tablator.BusinessModel": "1.0.0",
           "Tablator.DataAccess": "1.0.0",
           "Tablator.DomainModel": "1.0.0",
-          "Tablator.Infrastructure": "1.0.0"
+          "Tablator.Infrastructure": "1.0.0",
+          "Tablator.Rendering.Core": "1.0.0",
+          "Tablator.Rendering.SVG": "1.0.0"
         },
         "runtime": {
           "Tablator.Presentation.Web.UI.dll": {}
@@ -1145,11 +1147,10 @@
           "lib/netstandard1.3/Serilog.dll": {}
         }
       },
-      "serilog.extensions.logging/1.3.1": {
+      "serilog.extensions.logging/1.4.0": {
         "dependencies": {
           "Microsoft.Extensions.Logging.Abstractions": "1.1.0",
-          "Serilog": "2.3.0",
-          "System.Threading": "4.3.0"
+          "Serilog": "2.3.0"
         },
         "runtime": {
           "lib/netstandard1.3/Serilog.Extensions.Logging.dll": {}
@@ -1162,7 +1163,7 @@
         "dependencies": {
           "Microsoft.Extensions.Configuration.Abstractions": "1.1.0",
           "Serilog": "2.3.0",
-          "Serilog.Extensions.Logging": "1.3.1",
+          "Serilog.Extensions.Logging": "1.4.0",
           "Serilog.Formatting.Compact": "1.0.0",
           "Serilog.Sinks.Async": "1.0.1",
           "Serilog.Sinks.RollingFile": "3.1.0"
@@ -1399,6 +1400,7 @@
       },
       "tablator.businessmodel/1.0.0": {
         "dependencies": {
+          "Microsoft.DiaSymReader.Native": "1.4.2",
           "NETStandard.Library": "1.6.1",
           "Tablator.DomainModel": "1.0.0",
           "Tablator.Infrastructure": "1.0.0"
@@ -1426,6 +1428,7 @@
       },
       "tablator.domainmodel/1.0.0": {
         "dependencies": {
+          "Microsoft.DiaSymReader.Native": "1.4.2",
           "NETStandard.Library": "1.6.1",
           "Newtonsoft.Json": "9.0.1",
           "Tablator.Infrastructure": "1.0.0"
@@ -1439,6 +1442,7 @@
       },
       "tablator.infrastructure/1.0.0": {
         "dependencies": {
+          "Microsoft.DiaSymReader.Native": "1.4.2",
           "NETStandard.Library": "1.6.1",
           "Newtonsoft.Json": "9.0.1",
           "System.ComponentModel": "4.3.0",
@@ -1449,6 +1453,37 @@
         },
         "compile": {
           "Tablator.Infrastructure.dll": {}
+        }
+      },
+      "tablator.rendering.core/1.0.0": {
+        "dependencies": {
+          "Microsoft.DiaSymReader.Native": "1.4.2",
+          "NETStandard.Library": "1.6.1",
+          "Tablator.BusinessModel": "1.0.0",
+          "Tablator.DomainModel": "1.0.0",
+          "Tablator.Infrastructure": "1.0.0"
+        },
+        "runtime": {
+          "Tablator.Rendering.Core.dll": {}
+        },
+        "compile": {
+          "Tablator.Rendering.Core.dll": {}
+        }
+      },
+      "tablator.rendering.svg/1.0.0": {
+        "dependencies": {
+          "Microsoft.DiaSymReader.Native": "1.4.2",
+          "NETStandard.Library": "1.6.1",
+          "Tablator.BusinessModel": "1.0.0",
+          "Tablator.DomainModel": "1.0.0",
+          "Tablator.Infrastructure": "1.0.0",
+          "Tablator.Rendering.Core": "1.0.0"
+        },
+        "runtime": {
+          "Tablator.Rendering.SVG.dll": {}
+        },
+        "compile": {
+          "Tablator.Rendering.SVG.dll": {}
         }
       },
       "libuv/1.9.1": {
@@ -3626,12 +3661,12 @@
       "path": "serilog/2.3.0",
       "hashPath": "serilog.2.3.0.nupkg.sha512"
     },
-    "serilog.extensions.logging/1.3.1": {
+    "serilog.extensions.logging/1.4.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-qKLSag8emX5GOd074Xfjcs9CZpulfBockAHkNb6oC0EpI7xm5byBXRWKXQthzNCxo20ctYKZguxYvePQH8l3+g==",
-      "path": "serilog.extensions.logging/1.3.1",
-      "hashPath": "serilog.extensions.logging.1.3.1.nupkg.sha512"
+      "sha512": "sha512-nsg2CFYIQsZcNXYajDBNL+Li0EnFibOSLaACcpy+XGyrbmIEhGdLYiMXxadUE10kFfLLLbruZtdbGJ7OOudXlA==",
+      "path": "serilog.extensions.logging/1.4.0",
+      "hashPath": "serilog.extensions.logging.1.4.0.nupkg.sha512"
     },
     "serilog.extensions.logging.file/1.0.0": {
       "type": "package",
@@ -3759,6 +3794,16 @@
       "sha512": ""
     },
     "tablator.infrastructure/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "tablator.rendering.core/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "tablator.rendering.svg/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

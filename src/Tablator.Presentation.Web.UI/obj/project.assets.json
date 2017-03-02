@@ -1710,12 +1710,11 @@
           "lib/netstandard1.3/Serilog.dll": {}
         }
       },
-      "Serilog.Extensions.Logging/1.3.1": {
+      "Serilog.Extensions.Logging/1.4.0": {
         "type": "package",
         "dependencies": {
           "Microsoft.Extensions.Logging.Abstractions": "1.0.0",
-          "Serilog": "2.0.0",
-          "System.Threading": "4.0.11"
+          "Serilog": "2.3.0"
         },
         "compile": {
           "lib/netstandard1.3/Serilog.Extensions.Logging.dll": {}
@@ -3648,15 +3647,15 @@
           "Tablator.BusinessModel": "1.0.0",
           "Tablator.DataAccess": "1.0.0",
           "Tablator.DomainModel": "1.0.0",
-          "Tablator.Infrastructure": "1.0.0",
-          "Tablator.Rendering.SVG": "1.0.0"
+          "Tablator.Infrastructure": "1.0.0"
         }
       },
       "Tablator.BusinessModel/1.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v1.6",
         "dependencies": {
-          "NETStandard.Library": "1.6.0",
+          "Microsoft.DiaSymReader.Native": "1.4.2",
+          "NETStandard.Library": "1.6.1",
           "Tablator.DomainModel": "1.0.0",
           "Tablator.Infrastructure": "1.0.0"
         }
@@ -3675,7 +3674,8 @@
         "type": "project",
         "framework": ".NETStandard,Version=v1.6",
         "dependencies": {
-          "NETStandard.Library": "1.6.0",
+          "Microsoft.DiaSymReader.Native": "1.4.2",
+          "NETStandard.Library": "1.6.1",
           "Newtonsoft.Json": "9.0.1",
           "Tablator.Infrastructure": "1.0.0"
         }
@@ -3684,6 +3684,7 @@
         "type": "project",
         "framework": ".NETStandard,Version=v1.6",
         "dependencies": {
+          "Microsoft.DiaSymReader.Native": "1.4.2",
           "NETStandard.Library": "1.6.1",
           "Newtonsoft.Json": "9.0.1",
           "System.ComponentModel": "4.3.0",
@@ -3694,8 +3695,10 @@
         "type": "project",
         "framework": ".NETStandard,Version=v1.6",
         "dependencies": {
-          "NETStandard.Library": "1.6.0",
+          "Microsoft.DiaSymReader.Native": "1.4.2",
+          "NETStandard.Library": "1.6.1",
           "Tablator.BusinessModel": "1.0.0",
+          "Tablator.DomainModel": "1.0.0",
           "Tablator.Infrastructure": "1.0.0"
         }
       },
@@ -3703,8 +3706,10 @@
         "type": "project",
         "framework": ".NETStandard,Version=v1.6",
         "dependencies": {
-          "NETStandard.Library": "1.6.0",
+          "Microsoft.DiaSymReader.Native": "1.4.2",
+          "NETStandard.Library": "1.6.1",
           "Tablator.BusinessModel": "1.0.0",
+          "Tablator.DomainModel": "1.0.0",
           "Tablator.Infrastructure": "1.0.0",
           "Tablator.Rendering.Core": "1.0.0"
         }
@@ -5216,10 +5221,10 @@
         "lib/netstandard1.3/Serilog.xml"
       ]
     },
-    "Serilog.Extensions.Logging/1.3.1": {
-      "sha512": "qKLSag8emX5GOd074Xfjcs9CZpulfBockAHkNb6oC0EpI7xm5byBXRWKXQthzNCxo20ctYKZguxYvePQH8l3+g==",
+    "Serilog.Extensions.Logging/1.4.0": {
+      "sha512": "nsg2CFYIQsZcNXYajDBNL+Li0EnFibOSLaACcpy+XGyrbmIEhGdLYiMXxadUE10kFfLLLbruZtdbGJ7OOudXlA==",
       "type": "package",
-      "path": "serilog.extensions.logging/1.3.1",
+      "path": "serilog.extensions.logging/1.4.0",
       "files": [
         "lib/net45/Serilog.Extensions.Logging.dll",
         "lib/net45/Serilog.Extensions.Logging.xml",
@@ -5227,7 +5232,7 @@
         "lib/net46/Serilog.Extensions.Logging.xml",
         "lib/netstandard1.3/Serilog.Extensions.Logging.dll",
         "lib/netstandard1.3/Serilog.Extensions.Logging.xml",
-        "serilog.extensions.logging.1.3.1.nupkg.sha512",
+        "serilog.extensions.logging.1.4.0.nupkg.sha512",
         "serilog.extensions.logging.nuspec"
       ]
     },
@@ -9910,13 +9915,15 @@
       "Microsoft.Extensions.Options.ConfigurationExtensions >= 1.1.0",
       "Microsoft.NETCore.App >= 1.1.0",
       "Newtonsoft.Json >= 9.0.1",
-      "Serilog.Extensions.Logging >= 1.3.1",
+      "Serilog.Extensions.Logging >= 1.4.0",
       "Serilog.Extensions.Logging.File >= 1.0.0",
       "Tablator.BusinessLogic",
       "Tablator.BusinessModel",
       "Tablator.DataAccess",
       "Tablator.DomainModel",
-      "Tablator.Infrastructure"
+      "Tablator.Infrastructure",
+      "Tablator.Rendering.Core",
+      "Tablator.Rendering.SVG"
     ]
   },
   "packageFolders": {
@@ -9941,8 +9948,14 @@
             "D:\\Tablator\\Core\\Tablator.DataAccess\\Tablator.DataAccess.csproj": {
               "projectPath": "D:\\Tablator\\Core\\Tablator.DataAccess\\Tablator.DataAccess.csproj"
             },
+            "D:\\Tablator\\core\\Tablator.Rendering.SVG\\Tablator.Rendering.SVG.csproj": {
+              "projectPath": "D:\\Tablator\\core\\Tablator.Rendering.SVG\\Tablator.Rendering.SVG.csproj"
+            },
             "D:\\Tablator\\core\\Tablator.DomainModel\\Tablator.DomainModel.csproj": {
               "projectPath": "D:\\Tablator\\core\\Tablator.DomainModel\\Tablator.DomainModel.csproj"
+            },
+            "D:\\Tablator\\core\\Tablator.Rendering.Core\\Tablator.Rendering.Core.csproj": {
+              "projectPath": "D:\\Tablator\\core\\Tablator.Rendering.Core\\Tablator.Rendering.Core.csproj"
             },
             "D:\\Tablator\\core\\Tablator.Infrastructure\\Tablator.Infrastructure.csproj": {
               "projectPath": "D:\\Tablator\\core\\Tablator.Infrastructure\\Tablator.Infrastructure.csproj"
@@ -10015,7 +10028,7 @@
           },
           "Serilog.Extensions.Logging": {
             "target": "Package",
-            "version": "1.3.1"
+            "version": "1.4.0"
           },
           "Newtonsoft.Json": {
             "target": "Package",

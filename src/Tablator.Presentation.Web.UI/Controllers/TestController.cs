@@ -62,23 +62,16 @@ namespace Tablator.Presentation.Web.UI.Controllers
         {
             BusinessModel.Tablature.IInstrumentTablature tab = _tabService.Get(new Guid("4BBD4A605EDF40B2BF917687E3A94755"), InstrumentEnum.Guitar);
 
-            if (width <= 0)
-                width = 890;
-
-            Tablature tab = JsonConvert.DeserializeObject<Tablature>(json);
+            // todo : load SVG Builder by reflection (Tablatore.Rendering.SVG dll)
+            // get svg output and return it
 
             TablatureRenderingOptions opts = new TablatureRenderingOptions();
-            opts.Width = width;
-            _tablatureRenderingBuilderService.Init(opts, tab);
+            opts.Width = 890;
 
-            TabGenerationStatus status;
-            string ret = null;
-            if (_tablatureRenderingBuilderService.TryBuild(InstrumentEnum.Guitar, out status, out ret))
-            {
-                return View("Tab02", new TabViewModel(ret));
-            }
-
-            return Content(json, "text/json");
+            Tablator.Rendering.Core.ITablatureRenderingBuilder tabRenderingBuilder = new Tablator.Rendering.SVG.RenderingBuilder();
+            string svg = string.Empty;
+            TabGenerationStatus status = tabRenderingBuilder.BuildOutputContent(tab, opts, out svg);
+            return View("Tab02", new TabViewModel(svg));
         }
 
         //[HttpGet]
