@@ -19,7 +19,6 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyProductAttribute("Tablator.Presentation.Web.UI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Tablator.Presentation.Web.UI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
-[assembly: System.Resources.NeutralResourcesLanguageAttribute("en")]
 
 // Généré par la classe MSBuild WriteCodeFragment.
 

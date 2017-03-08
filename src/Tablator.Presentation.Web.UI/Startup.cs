@@ -73,6 +73,11 @@
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
+                  name: "Tab",
+                  template: "tab/{*urlPath}",
+                  defaults: new { controller = "Tab", action = "Get" });
+
+                routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });

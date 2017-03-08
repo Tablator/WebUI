@@ -5,12 +5,14 @@
   },
   "compilationOptions": {
     "defines": [
-      "DEBUG",
       "TRACE",
+      "DEBUG",
       "NETCOREAPP1_1"
     ],
     "languageVersion": "",
     "platform": "",
+    "allowUnsafe": false,
+    "warningsAsErrors": false,
     "optimize": false,
     "keyFile": "",
     "emitEntryPoint": true,

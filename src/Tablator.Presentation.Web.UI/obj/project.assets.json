@@ -811,6 +811,9 @@
       },
       "Microsoft.DiaSymReader.Native/1.4.2": {
         "type": "package",
+        "build": {
+          "build/Microsoft.DiaSymReader.Native.props": {}
+        },
         "runtimeTargets": {
           "runtimes/win-x64/native/Microsoft.DiaSymReader.Native.amd64.dll": {
             "assetType": "native",
@@ -9917,25 +9920,26 @@
       "Newtonsoft.Json >= 9.0.1",
       "Serilog.Extensions.Logging >= 1.4.0",
       "Serilog.Extensions.Logging.File >= 1.0.0",
-      "Tablator.BusinessLogic",
-      "Tablator.BusinessModel",
-      "Tablator.DataAccess",
-      "Tablator.DomainModel",
-      "Tablator.Infrastructure",
-      "Tablator.Rendering.Core",
-      "Tablator.Rendering.SVG"
+      "Tablator.BusinessLogic >= 1.0.0",
+      "Tablator.BusinessModel >= 1.0.0",
+      "Tablator.DataAccess >= 1.0.0",
+      "Tablator.DomainModel >= 1.0.0",
+      "Tablator.Infrastructure >= 1.0.0",
+      "Tablator.Rendering.Core >= 1.0.0",
+      "Tablator.Rendering.SVG >= 1.0.0"
     ]
   },
   "packageFolders": {
     "C:\\Users\\atorris\\.nuget\\packages\\": {}
   },
   "project": {
+    "version": "1.0.0",
     "restore": {
       "projectUniqueName": "D:\\Tablator\\WebUI\\src\\Tablator.Presentation.Web.UI\\Tablator.Presentation.Web.UI.csproj",
       "projectName": "Tablator.Presentation.Web.UI",
       "projectPath": "D:\\Tablator\\WebUI\\src\\Tablator.Presentation.Web.UI\\Tablator.Presentation.Web.UI.csproj",
       "outputPath": "D:\\Tablator\\WebUI\\src\\Tablator.Presentation.Web.UI\\obj\\",
-      "outputType": "NETCore",
+      "projectStyle": "PackageReference",
       "originalTargetFrameworks": [
         "netcoreapp1.1"
       ],
