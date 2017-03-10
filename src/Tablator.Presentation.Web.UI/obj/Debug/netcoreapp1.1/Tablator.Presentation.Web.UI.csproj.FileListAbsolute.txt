@@ -2,7 +2,6 @@ D:\Tablator\WebUI\src\Tablator.Presentation.Web.UI\bin\Debug\netcoreapp1.1\Tabla
 D:\Tablator\WebUI\src\Tablator.Presentation.Web.UI\bin\Debug\netcoreapp1.1\Tablator.Presentation.Web.UI.runtimeconfig.json
 D:\Tablator\WebUI\src\Tablator.Presentation.Web.UI\bin\Debug\netcoreapp1.1\Tablator.Presentation.Web.UI.runtimeconfig.dev.json
 D:\Tablator\WebUI\src\Tablator.Presentation.Web.UI\bin\Debug\netcoreapp1.1\Tablator.Presentation.Web.UI.dll
-D:\Tablator\WebUI\src\Tablator.Presentation.Web.UI\bin\Debug\netcoreapp1.1\Tablator.Presentation.Web.UI.pdb
 D:\Tablator\WebUI\src\Tablator.Presentation.Web.UI\bin\Debug\netcoreapp1.1\Tablator.BusinessLogic.dll
 D:\Tablator\WebUI\src\Tablator.Presentation.Web.UI\bin\Debug\netcoreapp1.1\Tablator.BusinessModel.dll
 D:\Tablator\WebUI\src\Tablator.Presentation.Web.UI\bin\Debug\netcoreapp1.1\Tablator.DataAccess.dll
@@ -11,13 +10,14 @@ D:\Tablator\WebUI\src\Tablator.Presentation.Web.UI\bin\Debug\netcoreapp1.1\Tabla
 D:\Tablator\WebUI\src\Tablator.Presentation.Web.UI\bin\Debug\netcoreapp1.1\Tablator.BusinessLogic.pdb
 D:\Tablator\WebUI\src\Tablator.Presentation.Web.UI\bin\Debug\netcoreapp1.1\Tablator.BusinessModel.pdb
 D:\Tablator\WebUI\src\Tablator.Presentation.Web.UI\bin\Debug\netcoreapp1.1\Tablator.DataAccess.pdb
-D:\Tablator\WebUI\src\Tablator.Presentation.Web.UI\bin\Debug\netcoreapp1.1\Tablator.DomainModel.pdb
 D:\Tablator\WebUI\src\Tablator.Presentation.Web.UI\bin\Debug\netcoreapp1.1\Tablator.Infrastructure.pdb
+D:\Tablator\WebUI\src\Tablator.Presentation.Web.UI\bin\Debug\netcoreapp1.1\Tablator.DomainModel.pdb
 D:\Tablator\WebUI\src\Tablator.Presentation.Web.UI\obj\Debug\netcoreapp1.1\Tablator.Presentation.Web.UI.csprojResolveAssemblyReference.cache
 D:\Tablator\WebUI\src\Tablator.Presentation.Web.UI\obj\Debug\netcoreapp1.1\Tablator.Presentation.Web.UI.AssemblyInfo.cs
+D:\Tablator\WebUI\src\Tablator.Presentation.Web.UI\bin\Debug\netcoreapp1.1\Tablator.Rendering.Core.dll
+D:\Tablator\WebUI\src\Tablator.Presentation.Web.UI\bin\Debug\netcoreapp1.1\Tablator.Rendering.SVG.dll
+D:\Tablator\WebUI\src\Tablator.Presentation.Web.UI\bin\Debug\netcoreapp1.1\Tablator.Rendering.Core.pdb
+D:\Tablator\WebUI\src\Tablator.Presentation.Web.UI\bin\Debug\netcoreapp1.1\Tablator.Rendering.SVG.pdb
+D:\Tablator\WebUI\src\Tablator.Presentation.Web.UI\bin\Debug\netcoreapp1.1\Tablator.Presentation.Web.UI.pdb
 D:\Tablator\WebUI\src\Tablator.Presentation.Web.UI\obj\Debug\netcoreapp1.1\Tablator.Presentation.Web.UI.dll
 D:\Tablator\WebUI\src\Tablator.Presentation.Web.UI\obj\Debug\netcoreapp1.1\Tablator.Presentation.Web.UI.pdb
-D:\Tablator\WebUI\src\Tablator.Presentation.Web.UI\bin\Debug\netcoreapp1.1\Tablator.Rendering.Core.dll
-D:\Tablator\WebUI\src\Tablator.Presentation.Web.UI\bin\Debug\netcoreapp1.1\Tablator.Rendering.Core.pdb
-D:\Tablator\WebUI\src\Tablator.Presentation.Web.UI\bin\Debug\netcoreapp1.1\Tablator.Rendering.SVG.dll
-D:\Tablator\WebUI\src\Tablator.Presentation.Web.UI\bin\Debug\netcoreapp1.1\Tablator.Rendering.SVG.pdb
