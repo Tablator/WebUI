@@ -55,7 +55,13 @@ namespace Tablator.Presentation.Web.UI.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index() => View((await _catalogService.GetCatalog()).GetArborescence());
+        public async Task<IActionResult> Index()
+        {
+            HierarchyCollectionModel hiers = (await _catalogService.GetCatalog()).GetArborescence();
+            HierachiesTabDecorator tabDecorator = new HierachiesTabDecorator(hiers);
+            tabDecorator.Match(await _catalogService.ListReferences());
+            return View(tabDecorator.GetArborescence());
+        }
 
         [HttpGet]
         public async Task<IActionResult> Tab01()
@@ -73,70 +79,33 @@ namespace Tablator.Presentation.Web.UI.Controllers
             TabGenerationStatus status = tabRenderingBuilder.BuildOutputContent(tab, opts, out svg);
             return View("Tab02", new TabViewModel(svg));
         }
-
-        //[HttpGet]
-        //public IActionResult Index()
-        //{
-        //    CatalogModel c = new CatalogModel();
-        //    c.Load(_catalogRootDirectory);
-
-        //    return View(c.GetArborescence());
-        //}
-
-        //[HttpGet]
-        //public IActionResult Chord01()
-        //{
-        //    GuitarChordManager gcm = new Controllers.GuitarChordManager();
-        //    return Content(null, "text/json");
-        //}
-
-        //[HttpGet]
-        //public IActionResult Tab03([FromQuery]int width)
-        //{
-        //    string json = string.Empty;
-        //    Newtonsoft.Json.Linq.JObject o2;
-
-
-        //    using (StreamReader file = System.IO.File.OpenText(Path.Combine(_catalogRootDirectory, "02.tab")))
-        //    {
-        //        using (JsonTextReader rdr = new JsonTextReader(file))
-        //        {
-        //            o2 = (Newtonsoft.Json.Linq.JObject)Newtonsoft.Json.Linq.JToken.ReadFrom(rdr);
-        //            json = o2.ToString();
-        //        }
-        //    }
-
-
-        //    if (width <= 0)
-        //        width = 890;
-
-        //    Tablature tab = JsonConvert.DeserializeObject<Tablature>(json);
-
-        //    TablatureRenderingOptions opts = new TablatureRenderingOptions();
-        //    opts.Width = width;
-        //    _tablatureRenderingBuilderService.Init(opts, tab);
-
-        //    TabGenerationStatus status;
-        //    string ret = null;
-        //    if (_tablatureRenderingBuilderService.TryBuild(InstrumentEnum.Guitar, out status, out ret))
-        //    {
-        //        return View("Tab02", new TabViewModel(ret));
-        //    }
-
-        //    return Content(json, "text/json");
-        //}
-
-        //[HttpGet]
-        //public IActionResult GetValueFromDisplayDescriptionUnitTest()
-        //{
-        //    //TODO: remove to unit test
-        //    GuitarChordEnum g = EnumerationExtensions.GetValueFromDisplayDescription<GuitarChordEnum>("|0|2|2|1|0|0");
-
-        //    return Content(null, "text/json");
-        //}
     }
 
+    public class HierachiesTabDecorator
+    {
+        private HierarchyCollectionModel _hierarchies = null;
 
+        public HierachiesTabDecorator(HierarchyCollectionModel hierarchies)
+        {
+            _hierarchies = hierarchies;
+        }
+
+        public void Match(HierarchyTabReferenceCollectionModel tabRefs)
+        {
+            if (tabRefs == null || tabRefs.Count == 0)
+                return;
+
+            if (_hierarchies == null || _hierarchies.Count == 0)
+                return;
+
+            foreach (HierarchyModel hier in _hierarchies)
+            {
+                hier.AddTablatures(tabRefs.Where(x => x.Parents != null && x.Parents.Count > 0 && x.Parents.ContainsKey(hier.Id)).ToList());
+            }
+        }
+
+        public HierarchyCollectionModel GetArborescence() => _hierarchies;
+    }
 
     #region chord
 
@@ -190,7 +159,7 @@ namespace Tablator.Presentation.Web.UI.Controllers
                 {
                     _Composition = string.Empty;
                     foreach (KeyValuePair<int, int?> kvp in Positions.OrderBy(x => x.Key))
-                        _Composition += kvp.Value + ChordConstants.CompositionSeparator;
+                        _Composition += kvp.Value + Tablator.Infrastructure.Constants.ChordConstants.CompositionSeparator;
                     _Composition += Capo;
                 }
 
