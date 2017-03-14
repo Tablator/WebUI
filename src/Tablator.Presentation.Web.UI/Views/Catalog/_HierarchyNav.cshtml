@@ -13,15 +13,4 @@
             }
         </ul>
     }
-    @if(Model.Tablatures != null && Model.Tablatures.Count > 0)
-    {
-        <ul>
-            @foreach(HierarchyTabReferenceModel tab in Model.Tablatures)
-            {
-                <li>@tab.Name</li>
-
-            }
-        </ul>
-
-    }
 </li>

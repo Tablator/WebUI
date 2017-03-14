@@ -30,10 +30,6 @@ namespace Tablator.Presentation.Web.UI.Controllers
 
         private readonly string _catalogRootDirectory;
 
-        //private readonly IGuitarTablatureRenderingBuilderService _guitarTablatureRenderingBuilderService;
-
-        //private readonly ITablatureRenderingBuilderService _tablatureRenderingBuilderService;
-
         private readonly ICatalogService _catalogService;
 
         private readonly ITablatureService _tabService;
@@ -41,15 +37,11 @@ namespace Tablator.Presentation.Web.UI.Controllers
         public TestController(
             ILoggerFactory loggerFactory
             , IOptions<CatalogSettings> catalogSettings
-            // , IGuitarTablatureRenderingBuilderService guitarTablatureRenderingBuilderService
-            //, ITablatureRenderingBuilderService tablatureRenderingBuilderService
             , ICatalogService catalogService
             , ITablatureService tabService)
         {
             _logger = loggerFactory.CreateLogger<TestController>();
             _catalogRootDirectory = catalogSettings.Value.RootDirectory;
-            //_guitarTablatureRenderingBuilderService = guitarTablatureRenderingBuilderService;
-            //_tablatureRenderingBuilderService = tablatureRenderingBuilderService;
             _catalogService = catalogService;
             _tabService = tabService;
         }
@@ -58,9 +50,10 @@ namespace Tablator.Presentation.Web.UI.Controllers
         public async Task<IActionResult> Index()
         {
             HierarchyCollectionModel hiers = (await _catalogService.GetCatalog()).GetArborescence();
-            HierachiesTabDecorator tabDecorator = new HierachiesTabDecorator(hiers);
-            tabDecorator.Match(await _catalogService.ListReferences());
-            return View(tabDecorator.GetArborescence());
+            HierarchyTabReferenceCollectionModel tabs = await _catalogService.ListReferences();
+            hiers.PopulateWithTablatures(ref tabs);
+            tabs = null;
+            return View(hiers);
         }
 
         [HttpGet]
@@ -79,32 +72,6 @@ namespace Tablator.Presentation.Web.UI.Controllers
             TabGenerationStatus status = tabRenderingBuilder.BuildOutputContent(tab, opts, out svg);
             return View("Tab02", new TabViewModel(svg));
         }
-    }
-
-    public class HierachiesTabDecorator
-    {
-        private HierarchyCollectionModel _hierarchies = null;
-
-        public HierachiesTabDecorator(HierarchyCollectionModel hierarchies)
-        {
-            _hierarchies = hierarchies;
-        }
-
-        public void Match(HierarchyTabReferenceCollectionModel tabRefs)
-        {
-            if (tabRefs == null || tabRefs.Count == 0)
-                return;
-
-            if (_hierarchies == null || _hierarchies.Count == 0)
-                return;
-
-            foreach (HierarchyModel hier in _hierarchies)
-            {
-                hier.AddTablatures(tabRefs.Where(x => x.Parents != null && x.Parents.Count > 0 && x.Parents.ContainsKey(hier.Id)).ToList());
-            }
-        }
-
-        public HierarchyCollectionModel GetArborescence() => _hierarchies;
     }
 
     #region chord
@@ -159,7 +126,7 @@ namespace Tablator.Presentation.Web.UI.Controllers
                 {
                     _Composition = string.Empty;
                     foreach (KeyValuePair<int, int?> kvp in Positions.OrderBy(x => x.Key))
-                        _Composition += kvp.Value + Tablator.Infrastructure.Constants.ChordConstants.CompositionSeparator;
+                        _Composition += kvp.Value + ChordConstants.CompositionSeparator;
                     _Composition += Capo;
                 }
 

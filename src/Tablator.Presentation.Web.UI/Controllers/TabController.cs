@@ -1,20 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using Tablator.Presentation.Web.UI.Models.Configuration;
-using Tablator.BusinessLogic.Services;
-using Tablator.Presentation.Web.UI.Models;
-using Tablator.Infrastructure.Enumerations;
-using Tablator.Infrastructure.Models;
-
-// For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
-namespace Tablator.Presentation.Web.UI.Controllers
+﻿namespace Tablator.Presentation.Web.UI.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Logging;
+    using Microsoft.Extensions.Options;
+    using Tablator.Presentation.Web.UI.Models.Configuration;
+    using Tablator.BusinessLogic.Services;
+    using Tablator.Presentation.Web.UI.Models;
+    using Tablator.Infrastructure.Enumerations;
+    using Tablator.Infrastructure.Models;
+
     /// <summary>
     /// Controller to deal with tablatures
     /// </summary>

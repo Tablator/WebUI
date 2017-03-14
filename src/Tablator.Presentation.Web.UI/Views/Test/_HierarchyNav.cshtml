@@ -13,4 +13,16 @@
             }
         </ul>
     }
+    @if (Model.Tablatures != null && Model.Tablatures.Count > 0)
+    {
+        <ul>
+            @foreach (Tablator.BusinessModel.HierarchyTabReferenceModel tab in Model.Tablatures)
+            {
+                <li>
+            <a href="/tab/@tab.UrlTitle" title="@tab.Name">@tab.Name - @tab.UrlTitle</a></li>
+
+            }
+        </ul>
+
+    }
 </li>
