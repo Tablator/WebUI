@@ -39,14 +39,17 @@
         {
             services.AddMvc();
 
-            services.Configure<CatalogSettings>(options => Configuration.GetSection("Catalog").Bind(options));
+            services.Configure<TablatureCatalogSettings>(options => Configuration.GetSection("TablatureCatalog").Bind(options));
+            services.Configure<ChordCatalogSettings>(options => Configuration.GetSection("ChordCatalog").Bind(options));
 
-            services.AddScoped<ICatalogRepository, CatalogRepository>(repo => new CatalogRepository(Configuration.GetSection("Catalog")["RootDirectory"]));
-            services.AddScoped<ITablatureRepository, TablatureRepository>(repo => new TablatureRepository(Configuration.GetSection("Catalog")["RootDirectory"]));
+            services.AddScoped<ICatalogRepository, CatalogRepository>(repo => new CatalogRepository(Configuration.GetSection("TablatureCatalog")["RootDirectory"]));
+            services.AddScoped<ITablatureRepository, TablatureRepository>(repo => new TablatureRepository(Configuration.GetSection("TablatureCatalog")["RootDirectory"]));
+            services.AddScoped<IChordRepository, ChordRepository>(repo => new ChordRepository(Configuration.GetSection("ChordCatalog")["RootDirectory"]));
 
             //services.AddScoped<IStorageFileService, StorageFileService>(serv => new StorageFileService(Configuration.GetSection("Catalog")["RootDirectory"]));
             services.AddScoped<ICatalogService, CatalogService>();
             services.AddScoped<ITablatureService, TablatureService>();
+            services.AddScoped<IChordService, ChordService>();
 
             //services.AddScoped<IGuitarChordRenderingBuilderService, GuitarChordRenderingBuilderService>();
             //services.AddScoped<IGuitarTablatureRenderingBuilderService, GuitarTablatureRenderingBuilderService>();

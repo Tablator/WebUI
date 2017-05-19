@@ -28,7 +28,15 @@ namespace Tablator.Presentation.Web.UI.Controllers
     {
         private readonly ILogger _logger;
 
-        private readonly string _catalogRootDirectory;
+        /// <summary>
+        /// Tablature catalog's root directory
+        /// </summary>
+        private readonly string _tabCatalogRootDirectory;
+
+        /// <summary>
+        /// Chords catalog's root directory
+        /// </summary>
+        private readonly string _chordCatalogRootDirectory;
 
         private readonly ICatalogService _catalogService;
 
@@ -36,12 +44,14 @@ namespace Tablator.Presentation.Web.UI.Controllers
 
         public TestController(
             ILoggerFactory loggerFactory
-            , IOptions<CatalogSettings> catalogSettings
+            , IOptions<TablatureCatalogSettings> tabCatalogSettings
+            , IOptions<ChordCatalogSettings> chordCatalogSettings
             , ICatalogService catalogService
             , ITablatureService tabService)
         {
             _logger = loggerFactory.CreateLogger<TestController>();
-            _catalogRootDirectory = catalogSettings.Value.RootDirectory;
+            _tabCatalogRootDirectory = tabCatalogSettings.Value.RootDirectory;
+            _chordCatalogRootDirectory = chordCatalogSettings.Value.RootDirectory;
             _catalogService = catalogService;
             _tabService = tabService;
         }

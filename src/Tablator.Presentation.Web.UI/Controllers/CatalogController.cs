@@ -41,11 +41,9 @@
         /// <param name="catalogService"></param>
         public CatalogController(
             ILoggerFactory loggerFactory
-            , IOptions<CatalogSettings> catalogSettings
             , ICatalogService catalogService)
         {
             _logger = loggerFactory.CreateLogger<TestController>();
-            _catalogRootDirectory = catalogSettings.Value.RootDirectory;
             _catalogService = catalogService;
         }
 

@@ -26,11 +26,6 @@
         private readonly ILogger _logger;
 
         /// <summary>
-        /// Catalog's root directory
-        /// </summary>
-        private readonly string _catalogRootDirectory;
-
-        /// <summary>
         /// Service to deal with the catalog
         /// </summary>
         private readonly ICatalogService _catalogService;
@@ -40,14 +35,19 @@
         /// </summary>
         private readonly ITablatureService _tabService;
 
+        /// <summary>
+        /// Chords catalog's root directory
+        /// </summary>
+        private readonly string _chordCatalogRootDirectory;
+
         public TabController(
             ILoggerFactory loggerFactory
-            , IOptions<CatalogSettings> catalogSettings
+            , IOptions<ChordCatalogSettings> chordCatalogSettings
             , ICatalogService catalogService
             , ITablatureService tabService)
         {
             _logger = loggerFactory.CreateLogger<TabController>();
-            _catalogRootDirectory = catalogSettings.Value.RootDirectory;
+            _chordCatalogRootDirectory = chordCatalogSettings.Value.RootDirectory;
             _catalogService = catalogService;
             _tabService = tabService;
         }

@@ -22,14 +22,10 @@ namespace Tablator.Presentation.Web.UI.Controllers
     {
         private readonly ILogger _logger;
 
-        private readonly string _catalogRootDirectory;
-
         public HomeController(
-            ILoggerFactory loggerFactory
-            , IOptions<CatalogSettings> catalogSettings)
+            ILoggerFactory loggerFactory)
         {
             _logger = loggerFactory.CreateLogger<HomeController>();
-            _catalogRootDirectory = catalogSettings.Value.RootDirectory;
         }
 
         [HttpGet]
